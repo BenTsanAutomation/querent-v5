@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-accent="violet" data-wireframe="on">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Querent — Menu of Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+<style>
+/* ==================================================================
+   Querent — Menu of Services
+   Implemented from Claude Design handoff bundle (services-page.jsx).
+   Single-file vanilla HTML/CSS/JS port; shares design tokens with
+   index.html.
+   ================================================================== */
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #0A0B0E;
+  --bg-elev: #13151A;
+  --bg-elev-2: #1B1E25;
+  --ink: #ECEEF2;
+  --ink-dim: #8A8F99;
+  --ink-mute: #5A5F69;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.16);
+  --accent: oklch(0.65 0.22 295);
+  --accent-2: oklch(0.72 0.18 250);
+  --accent-soft: oklch(0.65 0.22 295 / 0.14);
+  --warn: oklch(0.78 0.16 70);
+  --ok: oklch(0.78 0.16 150);
+  --maxw: 1280px;
+  --pad: 64px;
+  --gap-section: 160px;
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+[data-theme="light"] {
+  --bg: #F4F4F2;
+  --bg-elev: #FFFFFF;
+  --bg-elev-2: #F8F8F6;
+  --ink: #0A0B0E;
+  --ink-dim: #5A5F69;
+  --ink-mute: #8A8F99;
+  --line: rgba(0,0,0,0.10);
+  --line-strong: rgba(0,0,0,0.18);
+  --accent-soft: oklch(0.65 0.22 295 / 0.10);
+}
+[data-accent="blue"] {
+  --accent: oklch(0.72 0.18 250);
+  --accent-2: oklch(0.65 0.22 295);
+  --accent-soft: oklch(0.72 0.18 250 / 0.12);
+}
+[data-accent="amber"] {
+  --accent: oklch(0.78 0.16 70);
+  --accent-2: oklch(0.65 0.22 295);
+  --accent-soft: oklch(0.78 0.16 70 / 0.14);
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.mono { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.dim { color: var(--ink-dim); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+em { font-style: normal; }
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+}
+[data-wireframe="off"] body::before { display: none; }
+.app { position: relative; z-index: 1; }
+
+/* ---------- Header ---------- */
+.hdr {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.hdr-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px var(--pad);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+}
+.logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.02em; }
+.logo-mark {
+  width: 22px; height: 22px;
+  background: conic-gradient(from 210deg, var(--accent), var(--accent-2), var(--accent));
+  border-radius: 6px;
+  position: relative;
+}
+.logo-mark::after {
+  content: ""; position: absolute; inset: 5px;
+  background: var(--bg); border-radius: 3px;
+}
+.logo-word { font-size: 18px; }
+.nav { display: flex; gap: 32px; }
+.nav a { color: var(--ink-dim); font-size: 14px; transition: color .15s ease; }
+.nav a:hover, .nav a.is-active { color: var(--ink); }
+.hdr-actions { display: flex; align-items: center; gap: 12px; }
+.theme-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-dim);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink-dim); }
+.theme-toggle svg { position: absolute; transition: opacity 0.2s ease, transform 0.3s ease; }
+[data-theme="dark"]  .theme-toggle-sun  { opacity: 1; transform: rotate(0) scale(1); }
+[data-theme="dark"]  .theme-toggle-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+[data-theme="light"] .theme-toggle-sun  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+[data-theme="light"] .theme-toggle-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-block { width: 100%; padding: 14px 20px; }
+.btn-primary {
+  background: var(--accent); color: #0A0B0E;
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px -8px var(--accent);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 32px -8px var(--accent); }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* ---------- Typography ---------- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 24px;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-mute); display: inline-block; }
+.dot-live { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 25%, transparent); }
+.h1 {
+  font-size: clamp(42px, 5.6vw, 78px);
+  line-height: 1.02; letter-spacing: -0.035em;
+  font-weight: 600; margin: 0 0 24px;
+}
+.h2 {
+  font-size: clamp(32px, 3.6vw, 52px);
+  line-height: 1.05; letter-spacing: -0.03em;
+  font-weight: 600; margin: 0 0 16px;
+}
+.lede { font-size: 19px; line-height: 1.5; color: var(--ink-dim); max-width: 540px; margin: 0 0 32px; }
+.lede-sm { font-size: 16px; max-width: 480px; }
+
+/* ---------- Page hero ---------- */
+.svc-page-hero {
+  max-width: var(--maxw);
+  margin: 0 auto 0;
+  padding: 0 var(--pad) 64px;
+  border-bottom: 1px solid var(--line);
+}
+.svc-page-cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+/* ---------- Sticky service nav strip ---------- */
+.svc-nav {
+  max-width: var(--maxw);
+  margin: 48px auto 0;
+  padding: 16px var(--pad);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  position: sticky;
+  top: 65px;
+  z-index: 40;
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.svc-nav-item {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+.svc-nav-item:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Service detail blocks ---------- */
+.svc-detail {
+  max-width: var(--maxw);
+  margin: 96px auto 0;
+  padding: 0 var(--pad);
+  scroll-margin-top: 140px;
+}
+.svc-detail-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.svc-tag { color: var(--accent); font-weight: 500; }
+.svc-detail-name { margin: 16px 0 12px; }
+.svc-detail-sub { font-size: 19px; color: var(--ink); margin: 0 0 24px; }
+.svc-detail-body { color: var(--ink-dim); line-height: 1.65; max-width: 540px; margin-bottom: 32px; }
+.svc-detail-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink-dim);
+}
+.svc-detail-right { display: flex; flex-direction: column; gap: 24px; }
+.svc-detail-meta {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 24px;
+}
+.svc-detail-meta-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  align-items: start;
+}
+.svc-detail-meta-row:last-child { border-bottom: none; }
+.svc-detail-deliv {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.svc-detail-deliv-h { margin-bottom: 16px; }
+.svc-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+.svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; }
+.svc-list li::before { content: "→"; color: var(--accent); position: absolute; left: 0; }
+
+/* ---------- Final CTA ---------- */
+.cta-wrap {
+  max-width: var(--maxw);
+  margin: var(--gap-section) auto 0;
+  padding: 0 var(--pad) 80px;
+}
+.cta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 64px;
+  position: relative; overflow: hidden;
+  align-items: center;
+}
+.cta::before {
+  content: ""; position: absolute; inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, var(--accent-2));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none; opacity: 0.4;
+}
+.cta-h2 { font-size: clamp(36px, 4vw, 56px); }
+.svc-page-final { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+.cta-fine { text-align: center; margin-top: 4px; }
+
+/* ---------- Footer ---------- */
+.footer {
+  max-width: var(--maxw);
+  margin: 80px auto 48px;
+  padding: 48px var(--pad) 0;
+  border-top: 1px solid var(--line);
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+.footer-tag { color: var(--ink-dim); margin-top: 12px; font-size: 14px; }
+.footer-h { margin-bottom: 16px; }
+.footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--ink-dim); }
+.footer-rule { height: 1px; background: var(--line); margin-top: 48px; }
+.footer-bottom { display: flex; justify-content: space-between; padding: 24px 0; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  :root { --pad: 32px; --gap-section: 96px; }
+  .nav { display: none; }
+  .svc-nav { grid-template-columns: 1fr 1fr; }
+  .svc-detail-grid { grid-template-columns: 1fr; gap: 32px; }
+  .svc-list { grid-template-columns: 1fr; }
+  .cta { grid-template-columns: 1fr; padding: 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="app svc-page">
+
+  <!-- ========== Header ========== -->
+  <header class="hdr">
+    <div class="hdr-inner">
+      <a class="logo" href="index.html">
+        <img src="/querent-logo.png" alt="Querent" style="width:26px;height:26px;display:block;">
+        <span class="logo-word">Querent</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#services">Services</a>
+        <a href="menu.html" class="is-active">Menu</a>
+        <a href="index.html#case">Case Studies</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="hdr-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark mode">
+          <svg class="theme-toggle-sun"  viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="index.html#cta" class="btn btn-primary btn-sm">Book a Call →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== Page hero ========== -->
+    <section class="svc-page-hero">
+      <h1 class="h1">What we ship<br>and what it costs.</h1>
+      <p class="lede">
+        Five productized offers. Fixed‑price per outcome, never hourly. Pick one,
+        stack a few, or start with a strategy retainer and figure out what to
+        build first.
+      </p>
+      <div class="svc-page-cta">
+        <a href="index.html#cta" class="btn btn-primary">Book a free audit</a>
+        <a href="index.html" class="btn btn-ghost">← Back to home</a>
+      </div>
+    </section>
+
+    <!-- ========== Sticky service nav ========== -->
+    <nav class="svc-nav" aria-label="Services">
+      <a class="svc-nav-item" href="#concierge"><span>AI Concierge Services</span></a>
+      <a class="svc-nav-item" href="#workflow" ><span>Workflow Automation (n8n)</span></a>
+      <a class="svc-nav-item" href="#leadgen"  ><span>Outbound, Research &amp; Lead Gen</span></a>
+      <a class="svc-nav-item" href="#internal" ><span>Internal Ops Agents</span></a>
+      <a class="svc-nav-item" href="#consult"  ><span>Operations Strategy &amp; Advisory</span></a>
+    </nav>
+
+    <!-- ========== 01 Concierge ========== -->
+    <section class="svc-detail" id="concierge">
+      <div class="svc-detail-grid">
+        <div class="svc-detail-left">
+          <span class="svc-tag mono">CONCIERGE</span>
+          <h2 class="h2 svc-detail-name">AI Concierge Services</h2>
+          <p class="svc-detail-sub">Chat + voice agents that answer, qualify, and book — 24/7.</p>
+          <p class="svc-detail-body">A unified concierge layer for inbound. Trained on your knowledge base, wired to your calendar, CRM, and ticketing. Sub‑second voice responses with confident human handoff. Replaces the after‑hours desk; lifts the day‑shift's ceiling.</p>
+          <div class="svc-detail-stack">
+            <span class="chip">Voiceflow</span><span class="chip">Vapi</span><span class="chip">ElevenLabs</span>
+            <span class="chip">Twilio</span><span class="chip">Intercom</span><span class="chip">HubSpot</span><span class="chip">OpenAI</span>
+          </div>
+        </div>
+        <div class="svc-detail-right">
+          <div class="svc-detail-meta">
+            <div class="svc-detail-meta-row"><span class="mono dim">BEST FOR</span><span>Property management, clinics, professional services, e‑commerce support</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">TIMELINE</span><span>3–4 weeks from kickoff to production</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">INVESTMENT</span><span>$12k–$28k build · $2.4k+/mo retainer (optional)</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">OWNERSHIP</span><span>You own the trained agent, prompts, and integrations</span></div>
+          </div>
+          <div class="svc-detail-deliv">
+            <div class="mono dim svc-detail-deliv-h">DELIVERABLES</div>
+            <ul class="svc-list">
+              <li>Trained chat + voice agent</li>
+              <li>Web + Slack + WhatsApp + phone install</li>
+              <li>Calendar + CRM writeback</li>
+              <li>Ticket auto‑routing &amp; escalation</li>
+              <li>Weekly QA &amp; retraining report</li>
+              <li>Handoff playbook for your team</li>
+            </ul>
+          </div>
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book a scoping call →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 02 Workflow ========== -->
+    <section class="svc-detail" id="workflow">
+      <div class="svc-detail-grid">
+        <div class="svc-detail-left">
+          <span class="svc-tag mono">OPS</span>
+          <h2 class="h2 svc-detail-name">Workflow Automation (n8n)</h2>
+          <p class="svc-detail-sub">No‑code &amp; low‑code plumbing across the tools you already pay for — built on n8n, owned by you.</p>
+          <p class="svc-detail-body">End‑to‑end automation built primarily in n8n — the open‑source, self‑hostable workflow engine that means no per‑task pricing, no vendor lock‑in, and no caps on run volume. We wire Google Workspace (Drive, Gmail, Calendar, Sheets), Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts. We'll also work in Zapier or Make if your team already lives there.</p>
+          <div class="svc-detail-stack">
+            <span class="chip">n8n</span><span class="chip">Google Workspace</span><span class="chip">Slack</span>
+            <span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">Airtable</span>
+          </div>
+        </div>
+        <div class="svc-detail-right">
+          <div class="svc-detail-meta">
+            <div class="svc-detail-meta-row"><span class="mono dim">BEST FOR</span><span>Operations teams drowning in Sheets/Gmail/Slack copy‑paste</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">TIMELINE</span><span>2–4 weeks per flow; longer for multi‑system replatforms</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">INVESTMENT</span><span>$8k–$24k per workflow · volume discounts on bundles</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">OWNERSHIP</span><span>Self‑hosted in your VPC. Full source. No vendor lock‑in.</span></div>
+          </div>
+          <div class="svc-detail-deliv">
+            <div class="mono dim svc-detail-deliv-h">DELIVERABLES</div>
+            <ul class="svc-list">
+              <li>Workflow audit &amp; opportunity map</li>
+              <li>Self‑hosted n8n setup in your VPC</li>
+              <li>Google Workspace + Slack integration</li>
+              <li>Built + monitored flows with retry logic</li>
+              <li>Failure alerts to Slack on‑call</li>
+              <li>Runbook + handoff training</li>
+            </ul>
+          </div>
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book a scoping call →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 03 Outbound / Lead Gen ========== -->
+    <section class="svc-detail" id="leadgen">
+      <div class="svc-detail-grid">
+        <div class="svc-detail-left">
+          <span class="svc-tag mono">GROWTH</span>
+          <h2 class="h2 svc-detail-name">Outbound, Research &amp; Lead Gen</h2>
+          <p class="svc-detail-sub">Researched, personalized outbound at a volume humans can't touch.</p>
+          <p class="svc-detail-body">Agentic prospecting end‑to‑end. ICP discovery → deep account research (10‑K filings, news, hiring signals, tech stack) → personalized first‑touch → reply triage straight into your rep's calendar. SDRs stop researching and start closing.</p>
+          <div class="svc-detail-stack">
+            <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">Smartlead</span>
+            <span class="chip">Perplexity API</span><span class="chip">OpenAI</span><span class="chip">HubSpot</span>
+          </div>
+        </div>
+        <div class="svc-detail-right">
+          <div class="svc-detail-meta">
+            <div class="svc-detail-meta-row"><span class="mono dim">BEST FOR</span><span>B2B teams with a defined ICP and a closing process that works</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">TIMELINE</span><span>3–5 weeks to first booked meetings</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">INVESTMENT</span><span>$15k–$35k build · $3.5k+/mo retainer for tuning + scale</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">OWNERSHIP</span><span>Lists, sequences, and account briefs delivered into your tools</span></div>
+          </div>
+          <div class="svc-detail-deliv">
+            <div class="mono dim svc-detail-deliv-h">DELIVERABLES</div>
+            <ul class="svc-list">
+              <li>ICP &amp; list pipeline (Clay/Apollo)</li>
+              <li>Account research agent — per‑lead briefs</li>
+              <li>Personalized sequence builder</li>
+              <li>Reply classifier &amp; sentiment routing</li>
+              <li>Booking &amp; pipeline dashboard</li>
+              <li>Weekly performance review</li>
+            </ul>
+          </div>
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book a scoping call →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 04 Internal Ops ========== -->
+    <section class="svc-detail" id="internal">
+      <div class="svc-detail-grid">
+        <div class="svc-detail-left">
+          <span class="svc-tag mono">INTERNAL</span>
+          <h2 class="h2 svc-detail-name">Internal Ops Agents</h2>
+          <p class="svc-detail-sub">Agents that handle invoicing, data entry, and the boring middle.</p>
+          <p class="svc-detail-body">Internal agents that read PDFs, update CRMs, and reconcile spreadsheets. Approvals stay with humans; typing doesn't. Quietly removes hours from finance, HR, and PM workflows.</p>
+          <div class="svc-detail-stack">
+            <span class="chip">LlamaIndex</span><span class="chip">Notion</span>
+            <span class="chip">QuickBooks</span><span class="chip">Airtable</span><span class="chip">Slack</span>
+          </div>
+        </div>
+        <div class="svc-detail-right">
+          <div class="svc-detail-meta">
+            <div class="svc-detail-meta-row"><span class="mono dim">BEST FOR</span><span>Finance, ops, and HR teams hand‑keying data between systems</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">TIMELINE</span><span>2–6 weeks depending on document complexity</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">INVESTMENT</span><span>$10k–$30k per agent · volume pricing for multi‑agent rollouts</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">OWNERSHIP</span><span>Full source + audit logs + SOPs in your accounts</span></div>
+          </div>
+          <div class="svc-detail-deliv">
+            <div class="mono dim svc-detail-deliv-h">DELIVERABLES</div>
+            <ul class="svc-list">
+              <li>Document extraction agent</li>
+              <li>ERP / CRM writeback</li>
+              <li>Audit log + approvals UI</li>
+              <li>SOP automation</li>
+              <li>Error‑rate monitoring</li>
+              <li>Quarterly accuracy review</li>
+            </ul>
+          </div>
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book a scoping call →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 05 Strategy ========== -->
+    <section class="svc-detail" id="consult">
+      <div class="svc-detail-grid">
+        <div class="svc-detail-left">
+          <span class="svc-tag mono">STRATEGY</span>
+          <h2 class="h2 svc-detail-name">Operations Strategy &amp; Advisory</h2>
+          <p class="svc-detail-sub">A blanket retainer for everything the build offers don't cover.</p>
+          <p class="svc-detail-body">Strategy hours, on retainer. We sit with your team during conception and design — aligning resources, scoping budgets, choosing tools, and writing the brief — so the eventual build is the right one. Whether we ship it or someone else does.</p>
+          <div class="svc-detail-stack">
+            <span class="chip">Workshop‑led</span>
+            <span class="chip">Async + weekly working sessions</span>
+            <span class="chip">Custom</span>
+          </div>
+        </div>
+        <div class="svc-detail-right">
+          <div class="svc-detail-meta">
+            <div class="svc-detail-meta-row"><span class="mono dim">BEST FOR</span><span>Leaders evaluating where AI/automation fits their roadmap</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">TIMELINE</span><span>Ongoing · monthly minimum, no long contracts</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">INVESTMENT</span><span>From $4.5k/mo · 10 strategy hours + async Slack</span></div>
+            <div class="svc-detail-meta-row"><span class="mono dim">OWNERSHIP</span><span>All artifacts (briefs, decision docs, roadmaps) yours</span></div>
+          </div>
+          <div class="svc-detail-deliv">
+            <div class="mono dim svc-detail-deliv-h">DELIVERABLES</div>
+            <ul class="svc-list">
+              <li>Workflow inventory &amp; ROI scorecard</li>
+              <li>Build vs. buy decision docs</li>
+              <li>Vendor &amp; tool selection</li>
+              <li>Architecture &amp; systems design with your team</li>
+              <li>Org‑design and resourcing input</li>
+              <li>90‑day operations roadmap</li>
+            </ul>
+          </div>
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book a scoping call →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Final CTA ========== -->
+    <section class="cta-wrap">
+      <div class="cta">
+        <div class="cta-copy">
+          <div class="eyebrow"><span class="dot dot-live"></span> Not sure which fits?</div>
+          <h2 class="h2 cta-h2">Start with<br>a free audit.</h2>
+          <p class="lede lede-sm">
+            30 minutes. We'll map your top 3 workflows and tell you which
+            offer (if any) is right — in writing.
+          </p>
+        </div>
+        <div class="svc-page-final">
+          <a href="index.html#cta" class="btn btn-primary btn-block">Book my free audit →</a>
+          <a href="mailto:hello@querent.ai" class="btn btn-ghost btn-block">Email hello@querent.ai</a>
+          <div class="mono dim cta-fine">Replies within 1 business day. No drip sequences.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="index.html"><img src="/querent-logo.png" alt="Querent" style="width:26px;height:26px;display:block;"><span class="logo-word">Querent</span></a>
+        <p class="footer-tag">AI automation, productized.</p>
+      </div>
+      <div>
+        <div class="mono dim footer-h">SERVICES</div>
+        <ul>
+          <li><a href="menu.html">Menu of services →</a></li>
+          <li><a href="#concierge">AI Concierge</a></li>
+          <li><a href="#workflow">n8n Workflow Automation</a></li>
+          <li><a href="#leadgen">Outbound &amp; Research</a></li>
+          <li><a href="#internal">Internal Ops Agents</a></li>
+          <li><a href="#consult">Strategy &amp; Advisory</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="mono dim footer-h">COMPANY</div>
+        <ul>
+          <li><a href="index.html#case">Case studies</a></li>
+          <li><a href="index.html#process">Process</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li>Careers</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mono dim footer-h">CONTACT</div>
+        <ul>
+          <li>hello@querent.ai</li>
+          <li>press@querent.ai</li>
+          <li>Brooklyn · Lagos · Remote</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-bottom mono dim">
+      <span>© 2026 Querent Labs, Inc.</span>
+      <span>Wireframe v0.5 · Last updated 04.30.26</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  // ----- Theme toggle (shared with wireframe via the same localStorage key) -----
+  var html = document.documentElement;
+  try {
+    var saved = localStorage.getItem('querent-theme');
+    if (saved === 'light' || saved === 'dark') html.dataset.theme = saved;
+  } catch (e) {}
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    var next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
+    html.dataset.theme = next;
+    try { localStorage.setItem('querent-theme', next); } catch (e) {}
+  });
+
+  // ----- Smooth-scroll for the sticky service nav -----
+  document.querySelectorAll('a.svc-nav-item[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, '', a.getAttribute('href'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

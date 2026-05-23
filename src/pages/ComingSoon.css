@@ -1,0 +1,66 @@
+.coming-soon-page {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 6rem;
+}
+
+.coming-soon-content {
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: rgba(123, 44, 191, 0.15);
+    border: 1px solid var(--accent-glow);
+    border-radius: 100px;
+    color: var(--accent-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.coming-soon-content .hero-title {
+    margin-bottom: 1.5rem;
+}
+
+.coming-soon-content .hero-subtitle {
+    margin-bottom: 2.5rem;
+}
+
+.coming-soon-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coming-soon-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+    filter: blur(120px);
+    opacity: 0.35;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .coming-soon-cta {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-accent="violet" data-wireframe="on">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Book a Free Audit — Querent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #0A0B0E;
+  --bg-elev: #13151A;
+  --bg-elev-2: #1B1E25;
+  --ink: #ECEEF2;
+  --ink-dim: #8A8F99;
+  --ink-mute: #5A5F69;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.16);
+  --accent: oklch(0.65 0.22 295);
+  --accent-2: oklch(0.72 0.18 250);
+  --accent-soft: oklch(0.65 0.22 295 / 0.14);
+  --maxw: 1280px;
+  --pad: 64px;
+  --radius: 14px;
+}
+[data-theme="light"] {
+  --bg: #F4F4F2; --bg-elev: #FFFFFF; --bg-elev-2: #F8F8F6;
+  --ink: #0A0B0E; --ink-dim: #5A5F69; --ink-mute: #8A8F99;
+  --line: rgba(0,0,0,0.10); --line-strong: rgba(0,0,0,0.18);
+  --accent-soft: oklch(0.65 0.22 295 / 0.10);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01","cv11";
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px; line-height: 1.5; letter-spacing: -0.005em;
+}
+.mono { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.dim { color: var(--ink-dim); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.35; pointer-events: none; z-index: 0;
+  mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+}
+[data-wireframe="off"] body::before { display: none; }
+.app { position: relative; z-index: 1; }
+
+/* ---------- Header ---------- */
+.hdr {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.hdr-inner {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 16px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.02em; }
+.logo-word { font-size: 18px; }
+.nav { display: flex; gap: 32px; }
+.nav a { color: var(--ink-dim); font-size: 14px; transition: color .15s ease; }
+.nav a:hover { color: var(--ink); }
+.hdr-actions { display: flex; align-items: center; gap: 12px; }
+.theme-toggle {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line-strong);
+  color: var(--ink-dim); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s ease; position: relative;
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink-dim); }
+.theme-toggle svg { position: absolute; transition: opacity 0.2s ease, transform 0.3s ease; }
+[data-theme="dark"] .theme-toggle-sun  { opacity: 1; transform: rotate(0) scale(1); }
+[data-theme="dark"] .theme-toggle-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+[data-theme="light"] .theme-toggle-sun  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+[data-theme="light"] .theme-toggle-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; border: 1px solid transparent; transition: all 0.15s ease; white-space: nowrap; }
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-primary { background: var(--accent); color: #0A0B0E; border-color: var(--accent); box-shadow: 0 8px 24px -8px var(--accent); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 32px -8px var(--accent); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* ---------- Page layout ---------- */
+.page { max-width: var(--maxw); margin: 0 auto; padding: 56px var(--pad) 96px; display: flex; flex-direction: column; gap: 40px; }
+
+/* ---------- Pitch row ---------- */
+.pitch-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 16px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-mute); display: inline-block; }
+.dot-live { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 25%, transparent); }
+.h1 { font-size: clamp(28px, 3vw, 42px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 12px; }
+.h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: 15px; line-height: 1.6; color: var(--ink-dim); margin: 0; }
+.detail-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.detail-item { display: flex; align-items: flex-start; gap: 12px; }
+.detail-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--accent-soft); border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; }
+.detail-text h4 { font-size: 13px; font-weight: 500; margin: 0 0 2px; }
+.detail-text p { font-size: 12px; color: var(--ink-dim); margin: 0; }
+
+/* ---------- Calendar rectangle ---------- */
+.cal-wrap {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 640px;
+  width: 100%;
+  position: relative;
+}
+#cal-booking iframe { border: none !important; }
+.cal-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: var(--bg-elev);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- Footer ---------- */
+.footer-bar {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 24px var(--pad);
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+
+@media (max-width: 768px) {
+  :root { --pad: 24px; }
+  .pitch-row { grid-template-columns: 1fr; gap: 28px; }
+  .nav { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header class="hdr">
+    <div class="hdr-inner">
+      <a class="logo" href="index.html">
+        <img src="/querent-logo.png" alt="Querent" style="width:26px;height:26px;display:block;">
+        <span class="logo-word">Querent</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#services">Services</a>
+        <a href="menu.html">Menu</a>
+        <a href="index.html#case">Case Studies</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="hdr-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="index.html" class="btn btn-ghost btn-sm">← Back</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page">
+
+      <!-- Pitch row: headline left, details right -->
+      <div class="pitch-row">
+        <div>
+          <div class="eyebrow"><span class="dot dot-live"></span> Free · No obligation</div>
+          <h1 class="h1">Book a free<br><em>automation audit.</em></h1>
+          <p class="lede">We'll map your top 3 AI‑automatable workflows, model the ROI, and send you a written brief — whether you hire us or not.</p>
+        </div>
+        <ul class="detail-list">
+          <li class="detail-item">
+            <div class="detail-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="detail-text">
+              <h4>30-minute session</h4>
+              <p>Focused, no-fluff. We come prepared with research on your business.</p>
+            </div>
+          </li>
+          <li class="detail-item">
+            <div class="detail-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4-16l-18 7l4 2l2 6l3-4"/></svg>
+            </div>
+            <div class="detail-text">
+              <h4>Google Meet</h4>
+              <p>Link sent on confirmation. Screen-share ready.</p>
+            </div>
+          </li>
+          <li class="detail-item">
+            <div class="detail-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="detail-text">
+              <h4>Written brief included</h4>
+              <p>You leave with a workflow audit doc — yours to keep regardless.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Full-width calendar rectangle -->
+      <div class="cal-wrap">
+        <div id="cal-booking" style="width:100%;min-height:640px;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-bar mono dim">
+      <span>© 2026 Querent Labs, Inc.</span>
+      <a href="index.html" style="color:var(--ink-mute);">← Back to querent.ai</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Theme toggle
+var html = document.documentElement;
+try { var s = localStorage.getItem('querent-theme'); if (s === 'light' || s === 'dark') html.dataset.theme = s; } catch(e) {}
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  var next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  try { localStorage.setItem('querent-theme', next); } catch(e) {}
+});
+</script>
+
+<!-- Cal.com inline booking embed -->
+<script type="text/javascript">
+(function (C, A, L) {
+  let p = function (a, ar) { a.q.push(ar); };
+  let d = C.document;
+  C.Cal = C.Cal || function () {
+    let cal = C.Cal; let ar = arguments;
+    if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+    if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, [L, namespace, ar[2]]); } else p(cal, ar); return; }
+    p(cal, ar);
+  };
+})(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", { origin: "https://cal.com" });
+Cal("inline", {
+  elementOrSelector: "#cal-booking",
+  calLink: "ben-tsan-0jbz5i/30min",
+  config: { layout: "month_view", hideBranding: true }
+});
+Cal("ui", {
+  theme: "dark",
+  styles: { branding: { brandColor: "#7c3aed" } },
+  hideEventTypeDetails: true,
+  hideBranding: true,
+  layout: "month_view"
+});
+</script>
+</body>
+</html>

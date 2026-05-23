@@ -1,0 +1,50 @@
+.about-hero {
+    padding: 8rem 0 4rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-mission,
+.about-philosophy {
+    padding: 4rem 0;
+}
+
+.about-philosophy .section-title {
+    margin-bottom: 3rem;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.mission-content {
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    border-top: 2px solid var(--accent-primary);
+}
+
+.icon-wrapper {
+    display: inline-flex;
+    padding: 1rem;
+    background: var(--accent-glow);
+    color: var(--text-main);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+}
+
+.mission-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.mission-content p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
