@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
 /* ==================================================================
    Querent AI Automation Agency
@@ -1210,5 +1212,586 @@ body::before {
 
 })();
 </script>
+
+<!-- ========== Chat Widget ========== -->
+<style>
+/* Chat Widget Styles */
+.cw-wrap {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  z-index: 9000;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  font-family: 'Geist', system-ui, sans-serif;
+}
+
+/* Floating button */
+.cw-btn {
+  position: relative;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: oklch(0.72 0.14 185);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px -8px oklch(0.72 0.14 185 / 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cw-btn:hover { transform: scale(1.07); box-shadow: 0 12px 32px -8px oklch(0.72 0.14 185 / 0.85); }
+.cw-btn::before {
+  content: '';
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 2px solid oklch(0.72 0.14 185 / 0.35);
+  animation: cwPulse 2.2s ease-in-out infinite;
+}
+@keyframes cwPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(1.22); opacity: 0; }
+}
+.cw-btn svg { width: 24px; height: 24px; color: #0A0B0E; }
+.cw-btn-open svg.cw-icon-chat { display: none; }
+.cw-btn-open svg.cw-icon-close { display: block !important; }
+
+.cw-label {
+  font-size: 12px;
+  font-family: 'Geist Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: oklch(0.72 0.14 185);
+  background: rgba(10,11,14,0.85);
+  border: 1px solid oklch(0.72 0.14 185 / 0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  margin-bottom: -4px;
+}
+
+/* Panel */
+.cw-panel {
+  width: 400px;
+  max-height: 560px;
+  display: flex; flex-direction: column;
+  background: rgba(13,15,20,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px -16px rgba(0,0,0,0.7);
+  overflow: hidden;
+  transform-origin: bottom right;
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), opacity 0.18s ease;
+}
+.cw-panel.cw-hidden {
+  transform: scale(0.85) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header */
+.cw-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.cw-header-left { display: flex; align-items: center; gap: 10px; }
+.cw-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: oklch(0.72 0.14 185 / 0.18);
+  border: 1px solid oklch(0.72 0.14 185 / 0.4);
+  display: flex; align-items: center; justify-content: center;
+}
+.cw-avatar svg { width: 16px; height: 16px; color: oklch(0.72 0.14 185); }
+.cw-header-title { font-size: 14px; font-weight: 600; color: #eceef2; }
+.cw-header-sub { font-size: 11px; color: #8a8f99; }
+.cw-close-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: #8a8f99; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.cw-close-btn:hover { background: rgba(255,255,255,0.12); color: #eceef2; }
+
+/* Messages */
+.cw-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.cw-messages::-webkit-scrollbar { width: 4px; }
+.cw-messages::-webkit-scrollbar-track { background: transparent; }
+.cw-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+
+.cw-msg { display: flex; flex-direction: column; max-width: 85%; }
+.cw-msg-user { align-self: flex-end; align-items: flex-end; }
+.cw-msg-agent { align-self: flex-start; align-items: flex-start; }
+
+.cw-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px; line-height: 1.5;
+}
+.cw-msg-user .cw-bubble {
+  background: oklch(0.72 0.14 185);
+  color: #0A0B0E;
+  border-bottom-right-radius: 4px;
+}
+.cw-msg-agent .cw-bubble {
+  background: rgba(255,255,255,0.06);
+  color: #eceef2;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom-left-radius: 4px;
+}
+
+/* Markdown rendering */
+.cw-bubble strong { font-weight: 600; }
+.cw-bubble em { font-style: italic; }
+.cw-bubble code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  background: rgba(0,0,0,0.3);
+  padding: 1px 4px; border-radius: 3px;
+}
+.cw-bubble ul, .cw-bubble ol { padding-left: 18px; margin: 4px 0; }
+.cw-bubble li { margin: 2px 0; }
+.cw-bubble p { margin: 0 0 6px; }
+.cw-bubble p:last-child { margin-bottom: 0; }
+
+/* Typing indicator */
+.cw-thinking {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; border-bottom-left-radius: 4px;
+  color: #8a8f99; font-size: 13px;
+}
+.cw-dots { display: flex; gap: 3px; }
+.cw-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.72 0.14 185 / 0.7);
+  animation: cwDotBounce 1.2s ease-in-out infinite;
+}
+.cw-dot:nth-child(2) { animation-delay: 0.15s; }
+.cw-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes cwDotBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* Book demo button */
+.cw-book-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: oklch(0.72 0.14 185);
+  color: #0A0B0E;
+  border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s ease;
+  align-self: flex-start;
+}
+.cw-book-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -6px oklch(0.72 0.14 185); }
+
+/* Error book button */
+.cw-error-book {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  color: oklch(0.72 0.14 185);
+  border: 1px solid oklch(0.72 0.14 185 / 0.5);
+  border-radius: 8px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s ease;
+  align-self: flex-start;
+}
+.cw-error-book:hover { background: oklch(0.72 0.14 185 / 0.1); }
+
+/* Input */
+.cw-input-row {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 8px; align-items: flex-end;
+  flex-shrink: 0;
+}
+.cw-textarea {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: #eceef2;
+  font: inherit; font-size: 14px;
+  resize: none; outline: none;
+  max-height: 100px; min-height: 38px;
+  line-height: 1.4;
+  transition: border-color 0.15s;
+}
+.cw-textarea:focus { border-color: oklch(0.72 0.14 185 / 0.6); }
+.cw-textarea::placeholder { color: #5a5f69; }
+.cw-send-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: oklch(0.72 0.14 185);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.cw-send-btn:hover { transform: scale(1.05); }
+.cw-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.cw-send-btn svg { width: 16px; height: 16px; color: #0A0B0E; }
+
+@media (max-width: 480px) {
+  .cw-wrap { bottom: 16px; right: 16px; }
+  .cw-panel { width: calc(100vw - 32px); }
+}
+</style>
+
+<!-- Chat widget DOM -->
+<div class="cw-wrap" id="cw-wrap">
+  <div class="cw-panel cw-hidden" id="cw-panel">
+    <div class="cw-header">
+      <div class="cw-header-left">
+        <div class="cw-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="cw-header-title">Querent AI</div>
+          <div class="cw-header-sub">AI automation assistant</div>
+        </div>
+      </div>
+      <button class="cw-close-btn" id="cw-close" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cw-messages" id="cw-messages">
+      <div class="cw-msg cw-msg-agent">
+        <div class="cw-bubble">Hey! I'm Querent's AI assistant. Ask me about our services, pricing, or process — or I can help you book a demo.</div>
+      </div>
+    </div>
+    <div class="cw-input-row">
+      <textarea class="cw-textarea" id="cw-input" rows="1" placeholder="Ask anything..." aria-label="Chat message"></textarea>
+      <button class="cw-send-btn" id="cw-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="cw-label">Chat with our AI</div>
+  <button class="cw-btn" id="cw-toggle" aria-label="Open chat">
+    <svg class="cw-icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="cw-icon-close" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<script>
+(function () {
+  var CALENDLY_URL = 'https://calendly.com/querent/demo';
+
+  var panel = document.getElementById('cw-panel');
+  var toggleBtn = document.getElementById('cw-toggle');
+  var closeBtn = document.getElementById('cw-close');
+  var messagesEl = document.getElementById('cw-messages');
+  var inputEl = document.getElementById('cw-input');
+  var sendBtn = document.getElementById('cw-send');
+
+  var sessionId = null;
+  var isStreaming = false;
+
+  try { sessionId = localStorage.getItem('querent-chat-session'); } catch (e) {}
+
+  // Toggle panel open/close
+  function togglePanel() {
+    var isOpen = !panel.classList.contains('cw-hidden');
+    if (isOpen) {
+      panel.classList.add('cw-hidden');
+      toggleBtn.classList.remove('cw-btn-open');
+    } else {
+      panel.classList.remove('cw-hidden');
+      toggleBtn.classList.add('cw-btn-open');
+      inputEl.focus();
+    }
+  }
+  toggleBtn.addEventListener('click', togglePanel);
+  closeBtn.addEventListener('click', togglePanel);
+
+  // Auto-resize textarea
+  inputEl.addEventListener('input', function () {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 100) + 'px';
+  });
+
+  // Send on Enter (Shift+Enter = newline)
+  inputEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!isStreaming) sendMessage();
+    }
+  });
+  sendBtn.addEventListener('click', function () {
+    if (!isStreaming) sendMessage();
+  });
+
+  function scrollToBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  // Simple markdown renderer (bold, italic, code, lists)
+  function renderMarkdown(text) {
+    var html = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Code blocks
+    html = html.replace(/```[\s\S]*?```/g, function (m) {
+      var code = m.slice(3, -3).replace(/^[a-z]*\n/, '');
+      return '<pre><code>' + code + '</code></pre>';
+    });
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    // Bold
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    // Italic
+    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    // Unordered list lines
+    html = html.replace(/^[ \t]*[-*] (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>[\s\S]*?<\/li>)+/g, '<ul>$&</ul>');
+    // Paragraphs (split on double newline)
+    html = html.split(/\n\n+/).map(function (p) {
+      p = p.trim();
+      if (!p || p.startsWith('<ul>') || p.startsWith('<pre>')) return p;
+      return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+    }).join('');
+
+    return html;
+  }
+
+  function appendUserMessage(text) {
+    var msg = document.createElement('div');
+    msg.className = 'cw-msg cw-msg-user';
+    var bubble = document.createElement('div');
+    bubble.className = 'cw-bubble';
+    bubble.textContent = text;
+    msg.appendChild(bubble);
+    messagesEl.appendChild(msg);
+    scrollToBottom();
+  }
+
+  function appendThinking() {
+    var msg = document.createElement('div');
+    msg.className = 'cw-msg cw-msg-agent';
+    msg.id = 'cw-thinking';
+    var indicator = document.createElement('div');
+    indicator.className = 'cw-thinking';
+    indicator.innerHTML = '<span>Thinking</span><span class="cw-dots"><span class="cw-dot"></span><span class="cw-dot"></span><span class="cw-dot"></span></span>';
+    msg.appendChild(indicator);
+    messagesEl.appendChild(msg);
+    scrollToBottom();
+    return msg;
+  }
+
+  function removeThinking() {
+    var el = document.getElementById('cw-thinking');
+    if (el) el.remove();
+  }
+
+  function appendAgentMessage(text, showBookBtn) {
+    var msg = document.createElement('div');
+    msg.className = 'cw-msg cw-msg-agent';
+    var bubble = document.createElement('div');
+    bubble.className = 'cw-bubble';
+    bubble.innerHTML = renderMarkdown(text);
+    msg.appendChild(bubble);
+    if (showBookBtn) {
+      var btn = document.createElement('button');
+      btn.className = 'cw-book-btn';
+      btn.textContent = 'Book a Demo';
+      btn.addEventListener('click', openCalendly);
+      msg.appendChild(btn);
+    }
+    messagesEl.appendChild(msg);
+    scrollToBottom();
+    return { bubble: bubble };
+  }
+
+  function appendErrorMessage() {
+    var msg = document.createElement('div');
+    msg.className = 'cw-msg cw-msg-agent';
+    var bubble = document.createElement('div');
+    bubble.className = 'cw-bubble';
+    bubble.textContent = "I'm having trouble connecting right now. Please try again or book a demo directly.";
+    msg.appendChild(bubble);
+    var btn = document.createElement('button');
+    btn.className = 'cw-error-book';
+    btn.textContent = 'Book a Demo';
+    btn.addEventListener('click', openCalendly);
+    msg.appendChild(btn);
+    messagesEl.appendChild(msg);
+    scrollToBottom();
+  }
+
+  function openCalendly() {
+    if (window.Calendly) {
+      Calendly.initPopupWidget({ url: CALENDLY_URL });
+    } else {
+      window.open(CALENDLY_URL, '_blank');
+    }
+  }
+
+  async function sendMessage() {
+    var text = inputEl.value.trim();
+    if (!text) return;
+
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    isStreaming = true;
+    sendBtn.disabled = true;
+
+    appendUserMessage(text);
+    var thinkingEl = appendThinking();
+
+    var accum = '';
+    var agentBubble = null;
+    var firstToken = false;
+
+    try {
+      var payload = { message: text };
+      if (sessionId) payload.session_id = sessionId;
+
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // Capture session id from response header
+      var newSid = res.headers.get('X-Session-Id');
+      if (newSid) {
+        sessionId = newSid;
+        try { localStorage.setItem('querent-chat-session', newSid); } catch (e) {}
+      }
+
+      if (!res.ok) {
+        removeThinking();
+        appendErrorMessage();
+        return;
+      }
+
+      var reader = res.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+
+      while (true) {
+        var result = await reader.read();
+        if (result.done) break;
+
+        buffer += decoder.decode(result.value, { stream: true });
+        var lines = buffer.split('\n');
+        buffer = lines.pop(); // keep incomplete line
+
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].trim();
+          if (!line.startsWith('data:')) continue;
+          var json = line.slice(5).trim();
+          if (!json || json === '[DONE]') continue;
+
+          var evt;
+          try { evt = JSON.parse(json); } catch (e) { continue; }
+
+          if (evt.type === 'start' || evt.type === 'thinking') {
+            // keep showing thinking indicator
+          } else if (evt.type === 'delta') {
+            if (!firstToken) {
+              removeThinking();
+              firstToken = true;
+              var result2 = appendAgentMessage('', false);
+              agentBubble = result2.bubble;
+            }
+            accum += (evt.text || evt.content || evt.delta || '');
+            // Strip [BOOK_DEMO] token from display while streaming
+            var displayText = accum.replace(/\[BOOK_DEMO\]/g, '').trim();
+            agentBubble.innerHTML = renderMarkdown(displayText);
+            scrollToBottom();
+          } else if (evt.type === 'done') {
+            // handled after loop
+          } else if (evt.type === 'error') {
+            removeThinking();
+            appendErrorMessage();
+            return;
+          }
+        }
+      }
+
+      removeThinking();
+
+      // Check for [BOOK_DEMO] in accumulated text
+      var hasBookDemo = accum.includes('[BOOK_DEMO]');
+      var cleanText = accum.replace(/\[BOOK_DEMO\]/g, '').trim();
+
+      if (!firstToken) {
+        // No delta events — render full accumulated text
+        appendAgentMessage(cleanText, hasBookDemo);
+      } else if (agentBubble) {
+        agentBubble.innerHTML = renderMarkdown(cleanText);
+        if (hasBookDemo) {
+          var btn = document.createElement('button');
+          btn.className = 'cw-book-btn';
+          btn.textContent = 'Book a Demo';
+          btn.addEventListener('click', openCalendly);
+          agentBubble.parentNode.appendChild(btn);
+        }
+        scrollToBottom();
+      }
+
+    } catch (err) {
+      console.error('chat error:', err);
+      removeThinking();
+      appendErrorMessage();
+    } finally {
+      isStreaming = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+})();
+</script>
+
+<!-- Design Enhancements -->
+<style>
+/* Animated gradient border on service cards on hover */
+.svc-card {
+  position: relative;
+}
+.svc-card::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, oklch(0.72 0.14 185), oklch(0.65 0.12 195), oklch(0.72 0.14 185));
+  background-size: 200% 200%;
+  animation: cwGradShift 3s ease infinite;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.svc-card:hover::after { opacity: 1; }
+@keyframes cwGradShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero CTA primary button gentle pulse */
+.hero-cta .btn-primary {
+  animation: cwBtnPulse 2.5s ease-in-out infinite;
+}
+@keyframes cwBtnPulse {
+  0%, 100% { box-shadow: 0 8px 24px -8px var(--accent); }
+  50% { box-shadow: 0 8px 40px -4px oklch(0.72 0.14 185 / 0.65); }
+}
+</style>
 </body>
 </html>
