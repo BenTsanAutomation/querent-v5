@@ -406,13 +406,13 @@ body::before {
   background: var(--bg-elev-2);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 14px 18px; margin-top: 6px;
+  padding: 18px 24px; margin-top: 28px;
 }
-.svc-ba-col { display: flex; flex-direction: column; gap: 4px; }
+.svc-ba-col { display: flex; flex-direction: column; gap: 6px; }
 .svc-ba-col-after { text-align: right; align-items: flex-end; }
 .svc-ba-col-after .svc-ba-val { color: var(--accent); }
-.svc-ba-val { font-size: 12.5px; font-weight: 500; line-height: 1.45; }
-.svc-ba-arrow { color: var(--ink-mute); font-size: 16px; }
+.svc-ba-val { font-size: 14px; font-weight: 600; line-height: 1.45; }
+.svc-ba-arrow { color: var(--ink-mute); font-size: 18px; }
 .svc-stack { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
   font-family: 'Geist Mono', monospace;
@@ -820,9 +820,9 @@ body::before {
 
     <!-- ========== Service Offers ========== -->
     <section class="section" id="services">
-      <div class="section-head section-head-wide">
-        <h2 class="h2">What we ship.</h2>
-        <p class="lede lede-sm">
+      <div class="why-now-banner">
+        <h2 class="why-now-headline">Solutions we provide to help you take back your time.</h2>
+        <p class="why-now-body">
           Five productized offers. Each one is scoped, priced as an outcome,
           and measured against a before/after metric you sign off on. See the
           full <a href="menu.html" class="link">menu of services →</a>
@@ -864,17 +864,17 @@ body::before {
                   <li>Weekly QA &amp; retraining report</li>
                 </ul>
               </div>
-              <div class="svc-ba">
-                <div class="svc-ba-col">
-                  <span class="svc-section-lbl">BEFORE</span>
-                  <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
-                </div>
-                <div class="svc-ba-arrow">→</div>
-                <div class="svc-ba-col svc-ba-col-after">
-                  <span class="svc-section-lbl">AFTER</span>
-                  <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div class="svc-ba">
+            <div class="svc-ba-col">
+              <span class="svc-section-lbl">BEFORE</span>
+              <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
+            </div>
+            <div class="svc-ba-arrow">→</div>
+            <div class="svc-ba-col svc-ba-col-after">
+              <span class="svc-section-lbl">AFTER</span>
+              <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
             </div>
           </div>
         </article>
@@ -914,17 +914,17 @@ body::before {
                   <li>Runbook + handoff training</li>
                 </ul>
               </div>
-              <div class="svc-ba">
-                <div class="svc-ba-col">
-                  <span class="svc-section-lbl">BEFORE</span>
-                  <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
-                </div>
-                <div class="svc-ba-arrow">→</div>
-                <div class="svc-ba-col svc-ba-col-after">
-                  <span class="svc-section-lbl">AFTER</span>
-                  <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div class="svc-ba">
+            <div class="svc-ba-col">
+              <span class="svc-section-lbl">BEFORE</span>
+              <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
+            </div>
+            <div class="svc-ba-arrow">→</div>
+            <div class="svc-ba-col svc-ba-col-after">
+              <span class="svc-section-lbl">AFTER</span>
+              <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
             </div>
           </div>
         </article>
@@ -963,17 +963,17 @@ body::before {
                   <li>Booking &amp; pipeline dashboard</li>
                 </ul>
               </div>
-              <div class="svc-ba">
-                <div class="svc-ba-col">
-                  <span class="svc-section-lbl">BEFORE</span>
-                  <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
-                </div>
-                <div class="svc-ba-arrow">→</div>
-                <div class="svc-ba-col svc-ba-col-after">
-                  <span class="svc-section-lbl">AFTER</span>
-                  <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div class="svc-ba">
+            <div class="svc-ba-col">
+              <span class="svc-section-lbl">BEFORE</span>
+              <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
+            </div>
+            <div class="svc-ba-arrow">→</div>
+            <div class="svc-ba-col svc-ba-col-after">
+              <span class="svc-section-lbl">AFTER</span>
+              <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
             </div>
           </div>
         </article>
@@ -1011,17 +1011,17 @@ body::before {
                   <li>SOP automation &amp; monitoring</li>
                 </ul>
               </div>
-              <div class="svc-ba">
-                <div class="svc-ba-col">
-                  <span class="svc-section-lbl">BEFORE</span>
-                  <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
-                </div>
-                <div class="svc-ba-arrow">→</div>
-                <div class="svc-ba-col svc-ba-col-after">
-                  <span class="svc-section-lbl">AFTER</span>
-                  <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div class="svc-ba">
+            <div class="svc-ba-col">
+              <span class="svc-section-lbl">BEFORE</span>
+              <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
+            </div>
+            <div class="svc-ba-arrow">→</div>
+            <div class="svc-ba-col svc-ba-col-after">
+              <span class="svc-section-lbl">AFTER</span>
+              <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
             </div>
           </div>
         </article>
@@ -1061,17 +1061,17 @@ body::before {
                   <li>90‑day operations roadmap</li>
                 </ul>
               </div>
-              <div class="svc-ba">
-                <div class="svc-ba-col">
-                  <span class="svc-section-lbl">BEFORE</span>
-                  <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
-                </div>
-                <div class="svc-ba-arrow">→</div>
-                <div class="svc-ba-col svc-ba-col-after">
-                  <span class="svc-section-lbl">AFTER</span>
-                  <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div class="svc-ba">
+            <div class="svc-ba-col">
+              <span class="svc-section-lbl">BEFORE</span>
+              <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
+            </div>
+            <div class="svc-ba-arrow">→</div>
+            <div class="svc-ba-col svc-ba-col-after">
+              <span class="svc-section-lbl">AFTER</span>
+              <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
             </div>
           </div>
         </article>
