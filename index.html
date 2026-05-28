@@ -372,50 +372,47 @@ body::before {
 .value-src { color: var(--ink-mute); font-size: 10px !important; padding-top: 12px; border-top: 1px solid var(--line); }
 
 /* ---------- Services ---------- */
-.svc-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+.svc-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
 .svc-card {
   background: var(--bg-elev);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 32px;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+  padding: 36px 40px;
+  cursor: default;
 }
-.svc-card.is-open {
-  border-color: color-mix(in oklab, var(--accent) 50%, var(--line-strong));
-  box-shadow: 0 0 0 1px var(--accent-soft), 0 24px 60px -32px var(--accent);
+.svc-head {
+  display: flex; flex-direction: row; align-items: baseline; gap: 24px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: 28px;
 }
-.svc-head { display: flex; flex-direction: column; gap: 8px; }
-.svc-tag { color: var(--accent); font-weight: 500; }
-.svc-name { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
-.svc-sub { color: var(--ink-dim); font-size: 15px; margin: 4px 0 0; }
+.svc-name { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin: 0; white-space: nowrap; }
+.svc-sub { color: var(--ink-dim); font-size: 14px; margin: 0; flex: 1; }
 .svc-body {
-  margin-top: 28px; padding-top: 28px;
-  border-top: 1px solid var(--line);
-  display: flex; flex-direction: column; gap: 20px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
 }
-.svc-card:not(.is-open) .svc-body { display: none; }
-.svc-row { display: grid; grid-template-columns: 130px 1fr; gap: 16px; align-items: start; }
-.svc-row-key { color: var(--ink-mute); padding-top: 4px; }
-.svc-row p { margin: 0; color: var(--ink); font-size: 14.5px; line-height: 1.55; }
-.svc-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
-.svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; }
-.svc-list li::before { content: "→"; color: var(--accent); position: absolute; left: 0; }
-
+.svc-col { display: flex; flex-direction: column; gap: 22px; }
+.svc-section { display: flex; flex-direction: column; gap: 8px; }
+.svc-section-lbl {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-mute); display: block; margin-bottom: 4px;
+}
+.svc-section p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
+.svc-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; line-height: 1.5; }
+.svc-list li::before { content: "·"; color: var(--accent); position: absolute; left: 0; font-size: 20px; line-height: 0.9; top: 3px; }
 .svc-ba {
   display: grid; grid-template-columns: 1fr auto 1fr;
-  align-items: center; gap: 16px;
+  align-items: center; gap: 12px;
   background: var(--bg-elev-2);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 16px 20px;
+  padding: 14px 18px; margin-top: 6px;
 }
 .svc-ba-col { display: flex; flex-direction: column; gap: 4px; }
 .svc-ba-col-after { text-align: right; align-items: flex-end; }
 .svc-ba-col-after .svc-ba-val { color: var(--accent); }
-.svc-ba-val { font-size: 15px; font-weight: 500; }
-.svc-ba-arrow { color: var(--ink-mute); font-size: 18px; }
-
+.svc-ba-val { font-size: 12.5px; font-weight: 500; line-height: 1.45; }
+.svc-ba-arrow { color: var(--ink-mute); font-size: 16px; }
 .svc-stack { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
   font-family: 'Geist Mono', monospace;
@@ -656,8 +653,8 @@ body::before {
   .case { grid-template-columns: 1fr; padding: 32px; }
   .cta { grid-template-columns: 1fr; padding: 32px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .svc-row { grid-template-columns: 1fr; }
-  .svc-list { grid-template-columns: 1fr; }
+  .svc-body { grid-template-columns: 1fr; }
+  .svc-head { flex-direction: column; gap: 4px; }
   .proc2-rail { grid-template-columns: 1fr 1fr; row-gap: 24px; }
   .proc2-line, .proc2-line-fill { display: none; }
 }
@@ -833,44 +830,51 @@ body::before {
       </div>
       <div class="svc-grid" id="svc-grid">
 
-        <article class="svc-card is-open" data-svc="concierge">
+        <article class="svc-card" data-svc="concierge">
           <header class="svc-head">
             <h3 class="svc-name">AI Concierge Services</h3>
             <p class="svc-sub">Chat + voice agents that answer, qualify, and book 24/7.</p>
           </header>
           <div class="svc-body">
-            <div class="svc-row">
-              <span class="svc-row-key mono">PROBLEM</span>
-              <p>Customers ping support, sales, and the front desk at all hours. Calls go to voicemail. Tickets pile up. Revenue leaks overnight.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">WHAT WE BUILD</span>
-              <p>A unified concierge layer chat, voice, and SMS trained on your knowledge base, wired to your calendar, CRM, and ticketing. Sub‑second voice responses and human handoff when confidence drops.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">DELIVERABLES</span>
-              <ul class="svc-list">
-                <li>Trained concierge agent (chat + voice)</li>
-                <li>Web, Slack, WhatsApp, and phone install</li>
-                <li>Calendar + CRM writeback</li>
-                <li>Ticket auto‑routing &amp; escalation</li>
-                <li>Weekly QA &amp; retraining report</li>
-              </ul>
-            </div>
-            <div class="svc-ba">
-              <div class="svc-ba-col">
-                <span class="mono dim">BEFORE</span>
-                <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">THE PROBLEM</span>
+                <p>Customers ping support, sales, and the front desk at all hours. Calls go to voicemail. Tickets pile up. Revenue leaks overnight.</p>
               </div>
-              <div class="svc-ba-arrow">→</div>
-              <div class="svc-ba-col svc-ba-col-after">
-                <span class="mono dim">AFTER</span>
-                <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
+              <div class="svc-section">
+                <span class="svc-section-lbl">WHAT WE BUILD</span>
+                <p>A unified concierge layer — chat, voice, and SMS — trained on your knowledge base, wired to your calendar, CRM, and ticketing. Sub‑second voice responses and human handoff when confidence drops.</p>
+              </div>
+              <div class="svc-section">
+                <span class="svc-section-lbl">STACK</span>
+                <div class="svc-stack">
+                  <span class="chip">Voiceflow</span><span class="chip">Vapi</span><span class="chip">ElevenLabs</span>
+                  <span class="chip">Twilio</span><span class="chip">Intercom</span><span class="chip">HubSpot</span>
+                </div>
               </div>
             </div>
-            <div class="svc-stack">
-              <span class="chip">Voiceflow</span><span class="chip">Vapi</span><span class="chip">ElevenLabs</span>
-              <span class="chip">Twilio</span><span class="chip">Intercom</span><span class="chip">HubSpot</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">DELIVERABLES</span>
+                <ul class="svc-list">
+                  <li>Trained concierge agent (chat + voice)</li>
+                  <li>Web, Slack, WhatsApp, and phone install</li>
+                  <li>Calendar + CRM writeback</li>
+                  <li>Ticket auto‑routing &amp; escalation</li>
+                  <li>Weekly QA &amp; retraining report</li>
+                </ul>
+              </div>
+              <div class="svc-ba">
+                <div class="svc-ba-col">
+                  <span class="svc-section-lbl">BEFORE</span>
+                  <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
+                </div>
+                <div class="svc-ba-arrow">→</div>
+                <div class="svc-ba-col svc-ba-col-after">
+                  <span class="svc-section-lbl">AFTER</span>
+                  <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -878,42 +882,49 @@ body::before {
         <article class="svc-card" data-svc="workflow">
           <header class="svc-head">
             <h3 class="svc-name">Workflow Automation (n8n)</h3>
-            <p class="svc-sub">No‑code &amp; low‑code plumbing across the tools you already pay for built on n8n, owned by you.</p>
+            <p class="svc-sub">No‑code &amp; low‑code plumbing across the tools you already pay for — built on n8n, owned by you.</p>
           </header>
           <div class="svc-body">
-            <div class="svc-row">
-              <span class="svc-row-key mono">PROBLEM</span>
-              <p>Ops team copy‑pastes between 7 tools. Errors compound. Reports run late. SaaS bills creep up for tools that barely talk.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">WHAT WE BUILD</span>
-              <p>End‑to‑end automation built primarily in n8n the open‑source, self‑hostable workflow engine that means no per‑task pricing, no vendor lock‑in, and no caps on run volume. We wire Google Workspace (Drive, Gmail, Calendar, Sheets), Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts. We'll also work in Zapier or Make if your team already lives there.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">DELIVERABLES</span>
-              <ul class="svc-list">
-                <li>Workflow audit &amp; opportunity map</li>
-                <li>Self‑hosted n8n setup in your VPC</li>
-                <li>Google Workspace + Slack integration</li>
-                <li>Built + monitored flows with retry logic</li>
-                <li>Failure alerts to Slack on‑call</li>
-                <li>Runbook + handoff training</li>
-              </ul>
-            </div>
-            <div class="svc-ba">
-              <div class="svc-ba-col">
-                <span class="mono dim">BEFORE</span>
-                <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">THE PROBLEM</span>
+                <p>Ops team copy‑pastes between 7 tools. Errors compound. Reports run late. SaaS bills creep up for tools that barely talk.</p>
               </div>
-              <div class="svc-ba-arrow">→</div>
-              <div class="svc-ba-col svc-ba-col-after">
-                <span class="mono dim">AFTER</span>
-                <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
+              <div class="svc-section">
+                <span class="svc-section-lbl">WHAT WE BUILD</span>
+                <p>End‑to‑end automation in n8n — the open‑source, self‑hostable workflow engine. No per‑task pricing, no vendor lock‑in, no caps on run volume. We wire Google Workspace, Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts.</p>
+              </div>
+              <div class="svc-section">
+                <span class="svc-section-lbl">STACK</span>
+                <div class="svc-stack">
+                  <span class="chip">n8n</span><span class="chip">Google Workspace</span><span class="chip">Slack</span>
+                  <span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">Airtable</span>
+                </div>
               </div>
             </div>
-            <div class="svc-stack">
-              <span class="chip">n8n</span><span class="chip">Google Workspace</span><span class="chip">Slack</span>
-              <span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">Airtable</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">DELIVERABLES</span>
+                <ul class="svc-list">
+                  <li>Workflow audit &amp; opportunity map</li>
+                  <li>Self‑hosted n8n setup in your VPC</li>
+                  <li>Google Workspace + Slack integration</li>
+                  <li>Built + monitored flows with retry logic</li>
+                  <li>Failure alerts to Slack on‑call</li>
+                  <li>Runbook + handoff training</li>
+                </ul>
+              </div>
+              <div class="svc-ba">
+                <div class="svc-ba-col">
+                  <span class="svc-section-lbl">BEFORE</span>
+                  <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
+                </div>
+                <div class="svc-ba-arrow">→</div>
+                <div class="svc-ba-col svc-ba-col-after">
+                  <span class="svc-section-lbl">AFTER</span>
+                  <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -924,38 +935,45 @@ body::before {
             <p class="svc-sub">Researched, personalized outbound at a volume humans can't touch.</p>
           </header>
           <div class="svc-body">
-            <div class="svc-row">
-              <span class="svc-row-key mono">PROBLEM</span>
-              <p>SDRs burn 60%+ of their day on research and list‑building, not conversations. Generic sequences land in spam.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">WHAT WE BUILD</span>
-              <p>Agentic prospecting: ICP discovery → deep account research (10‑K filings, news, hiring signals) → personalized first‑touch → reply triage straight into your rep's calendar.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">DELIVERABLES</span>
-              <ul class="svc-list">
-                <li>ICP &amp; list pipeline (Clay/Apollo)</li>
-                <li>Account research agent (per‑lead briefs)</li>
-                <li>Personalized sequence builder</li>
-                <li>Reply classifier &amp; sentiment routing</li>
-                <li>Booking &amp; pipeline dashboard</li>
-              </ul>
-            </div>
-            <div class="svc-ba">
-              <div class="svc-ba-col">
-                <span class="mono dim">BEFORE</span>
-                <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">THE PROBLEM</span>
+                <p>SDRs burn 60%+ of their day on research and list‑building, not conversations. Generic sequences land in spam.</p>
               </div>
-              <div class="svc-ba-arrow">→</div>
-              <div class="svc-ba-col svc-ba-col-after">
-                <span class="mono dim">AFTER</span>
-                <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
+              <div class="svc-section">
+                <span class="svc-section-lbl">WHAT WE BUILD</span>
+                <p>Agentic prospecting: ICP discovery → deep account research (10‑K filings, news, hiring signals) → personalized first‑touch → reply triage straight into your rep's calendar.</p>
+              </div>
+              <div class="svc-section">
+                <span class="svc-section-lbl">STACK</span>
+                <div class="svc-stack">
+                  <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">Smartlead</span>
+                  <span class="chip">Perplexity API</span><span class="chip">OpenAI</span>
+                </div>
               </div>
             </div>
-            <div class="svc-stack">
-              <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">Smartlead</span>
-              <span class="chip">Perplexity API</span><span class="chip">OpenAI</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">DELIVERABLES</span>
+                <ul class="svc-list">
+                  <li>ICP &amp; list pipeline (Clay/Apollo)</li>
+                  <li>Account research agent (per‑lead briefs)</li>
+                  <li>Personalized sequence builder</li>
+                  <li>Reply classifier &amp; sentiment routing</li>
+                  <li>Booking &amp; pipeline dashboard</li>
+                </ul>
+              </div>
+              <div class="svc-ba">
+                <div class="svc-ba-col">
+                  <span class="svc-section-lbl">BEFORE</span>
+                  <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
+                </div>
+                <div class="svc-ba-arrow">→</div>
+                <div class="svc-ba-col svc-ba-col-after">
+                  <span class="svc-section-lbl">AFTER</span>
+                  <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -966,37 +984,44 @@ body::before {
             <p class="svc-sub">Agents that handle invoicing, data entry, and the boring middle.</p>
           </header>
           <div class="svc-body">
-            <div class="svc-row">
-              <span class="svc-row-key mono">PROBLEM</span>
-              <p>Finance, HR, and PM teams hand‑key data between systems daily. Approvals get lost in email.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">WHAT WE BUILD</span>
-              <p>Internal agents that read PDFs, update CRMs, and reconcile spreadsheets. Approvals stay with humans; typing doesn't.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">DELIVERABLES</span>
-              <ul class="svc-list">
-                <li>Document extraction agent (invoices, contracts)</li>
-                <li>ERP / CRM writeback</li>
-                <li>Audit log + approvals UI</li>
-                <li>SOP automation &amp; monitoring</li>
-              </ul>
-            </div>
-            <div class="svc-ba">
-              <div class="svc-ba-col">
-                <span class="mono dim">BEFORE</span>
-                <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">THE PROBLEM</span>
+                <p>Finance, HR, and PM teams hand‑key data between systems daily. Approvals get lost in email.</p>
               </div>
-              <div class="svc-ba-arrow">→</div>
-              <div class="svc-ba-col svc-ba-col-after">
-                <span class="mono dim">AFTER</span>
-                <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
+              <div class="svc-section">
+                <span class="svc-section-lbl">WHAT WE BUILD</span>
+                <p>Internal agents that read PDFs, update CRMs, and reconcile spreadsheets. Approvals stay with humans; typing doesn't.</p>
+              </div>
+              <div class="svc-section">
+                <span class="svc-section-lbl">STACK</span>
+                <div class="svc-stack">
+                  <span class="chip">LlamaIndex</span><span class="chip">Notion</span>
+                  <span class="chip">QuickBooks</span><span class="chip">Airtable</span><span class="chip">Slack</span>
+                </div>
               </div>
             </div>
-            <div class="svc-stack">
-              <span class="chip">LlamaIndex</span><span class="chip">Notion</span>
-              <span class="chip">QuickBooks</span><span class="chip">Airtable</span><span class="chip">Slack</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">DELIVERABLES</span>
+                <ul class="svc-list">
+                  <li>Document extraction agent (invoices, contracts)</li>
+                  <li>ERP / CRM writeback</li>
+                  <li>Audit log + approvals UI</li>
+                  <li>SOP automation &amp; monitoring</li>
+                </ul>
+              </div>
+              <div class="svc-ba">
+                <div class="svc-ba-col">
+                  <span class="svc-section-lbl">BEFORE</span>
+                  <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
+                </div>
+                <div class="svc-ba-arrow">→</div>
+                <div class="svc-ba-col svc-ba-col-after">
+                  <span class="svc-section-lbl">AFTER</span>
+                  <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -1007,39 +1032,46 @@ body::before {
             <p class="svc-sub">A blanket retainer for everything the build offers don't cover.</p>
           </header>
           <div class="svc-body">
-            <div class="svc-row">
-              <span class="svc-row-key mono">PROBLEM</span>
-              <p>Leadership knows AI matters. They also need help thinking through org design, vendor selection, system architecture, and the decisions that come <em>before</em> a build.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">WHAT WE BUILD</span>
-              <p>Strategy hours, on retainer. We sit with your team during conception and design aligning resources, scoping budgets, choosing tools, and writing the brief so the eventual build is the right one. Whether we ship it or someone else does.</p>
-            </div>
-            <div class="svc-row">
-              <span class="svc-row-key mono">DELIVERABLES</span>
-              <ul class="svc-list">
-                <li>Workflow inventory &amp; ROI scorecard</li>
-                <li>Build vs. buy decision docs</li>
-                <li>Vendor &amp; tool selection</li>
-                <li>Architecture &amp; systems design with your team</li>
-                <li>Org‑design and resourcing input</li>
-                <li>90‑day operations roadmap</li>
-              </ul>
-            </div>
-            <div class="svc-ba">
-              <div class="svc-ba-col">
-                <span class="mono dim">BEFORE</span>
-                <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">THE PROBLEM</span>
+                <p>Leadership knows AI matters. They also need help thinking through org design, vendor selection, system architecture, and the decisions that come <em>before</em> a build.</p>
               </div>
-              <div class="svc-ba-arrow">→</div>
-              <div class="svc-ba-col svc-ba-col-after">
-                <span class="mono dim">AFTER</span>
-                <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
+              <div class="svc-section">
+                <span class="svc-section-lbl">WHAT WE BUILD</span>
+                <p>Strategy hours, on retainer. We sit with your team during conception and design — aligning resources, scoping budgets, choosing tools, and writing the brief so the eventual build is the right one. Whether we ship it or someone else does.</p>
+              </div>
+              <div class="svc-section">
+                <span class="svc-section-lbl">STACK</span>
+                <div class="svc-stack">
+                  <span class="chip">Workshop‑led</span><span class="chip">Custom</span>
+                  <span class="chip">Async + weekly working sessions</span>
+                </div>
               </div>
             </div>
-            <div class="svc-stack">
-              <span class="chip">Workshop‑led</span><span class="chip">Custom</span>
-              <span class="chip">Async + weekly working sessions</span>
+            <div class="svc-col">
+              <div class="svc-section">
+                <span class="svc-section-lbl">DELIVERABLES</span>
+                <ul class="svc-list">
+                  <li>Workflow inventory &amp; ROI scorecard</li>
+                  <li>Build vs. buy decision docs</li>
+                  <li>Vendor &amp; tool selection</li>
+                  <li>Architecture &amp; systems design with your team</li>
+                  <li>Org‑design and resourcing input</li>
+                  <li>90‑day operations roadmap</li>
+                </ul>
+              </div>
+              <div class="svc-ba">
+                <div class="svc-ba-col">
+                  <span class="svc-section-lbl">BEFORE</span>
+                  <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
+                </div>
+                <div class="svc-ba-arrow">→</div>
+                <div class="svc-ba-col svc-ba-col-after">
+                  <span class="svc-section-lbl">AFTER</span>
+                  <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -1209,16 +1241,6 @@ body::before {
     var next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
     html.dataset.theme = next;
     try { localStorage.setItem('querent-theme', next); } catch (e) {}
-  });
-
-  // ----- Services accordion (one card open at a time) -----
-  var grid = document.getElementById('svc-grid');
-  grid.addEventListener('click', function (e) {
-    var card = e.target.closest('.svc-card');
-    if (!card) return;
-    grid.querySelectorAll('.svc-card').forEach(function (c) {
-      c.classList.toggle('is-open', c === card);
-    });
   });
 
   // ----- Process v2 step switcher -----
@@ -1807,28 +1829,6 @@ body::before {
 
 <!-- Design Enhancements -->
 <style>
-/* Animated gradient border on service cards on hover */
-.svc-card {
-  position: relative;
-}
-.svc-card::after {
-  content: '';
-  position: absolute; inset: -1px;
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, oklch(0.72 0.14 185), oklch(0.65 0.12 195), oklch(0.72 0.14 185));
-  background-size: 200% 200%;
-  animation: cwGradShift 3s ease infinite;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-.svc-card:hover::after { opacity: 1; }
-@keyframes cwGradShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
 /* Hero CTA primary button gentle pulse */
 .hero-cta .btn-primary {
