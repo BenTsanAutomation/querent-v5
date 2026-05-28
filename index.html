@@ -235,27 +235,23 @@ body::before {
 .link:hover { border-bottom-color: var(--accent); }
 
 /* ---------- Hero ---------- */
-.hero-grid {
-  display: grid; grid-template-columns: 1.05fr 1fr;
-  gap: 72px; align-items: center; min-height: 600px;
-}
-.hero-cta { display: flex; gap: 12px; margin-bottom: 48px; }
-.hero-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.hero-headline { margin-bottom: 48px; }
+.hero-row {
+  display: flex; align-items: center; gap: 64px;
   border-top: 1px solid var(--line);
   padding-top: 40px;
-  margin-top: 8px;
+}
+.hero-copy { flex: 0 0 auto; max-width: 440px; }
+.hero-cta { display: flex; gap: 12px; margin-top: 28px; }
+.hero-stats {
+  display: flex; gap: 48px; flex: 1;
+  justify-content: flex-end; align-items: flex-start;
 }
 .stat {
-  display: flex; flex-direction: column; gap: 6px;
-  padding: 20px;
-  background: var(--bg-elev);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  display: flex; flex-direction: column; gap: 5px;
 }
-.stat-num { font-size: 32px; font-weight: 600; letter-spacing: -0.04em; color: var(--ink); }
-.stat-lbl { font-size: 11px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.4; }
+.stat-num { font-size: 36px; font-weight: 600; letter-spacing: -0.04em; color: var(--ink); }
+.stat-lbl { font-size: 12px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; max-width: 120px; }
 
 .hero-visual {
   position: relative; aspect-ratio: 1.05 / 1;
@@ -653,8 +649,8 @@ body::before {
   :root { --pad: 32px; --gap-section: 96px; }
   .hdr-inner { gap: 16px; }
   .nav { display: none; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-visual { aspect-ratio: 1.4 / 1; }
+  .hero-row { flex-direction: column; align-items: flex-start; gap: 40px; }
+  .hero-stats { justify-content: flex-start; gap: 32px; flex-wrap: wrap; }
   .annot { display: none; }
   .value-grid { grid-template-columns: 1fr; }
   .case { grid-template-columns: 1fr; padding: 32px; }
@@ -698,27 +694,29 @@ body::before {
 
     <!-- ========== Hero ========== -->
     <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <h1 class="h1">
-            Scale operations<br>
-            with custom <em>AI workflows</em>.
-          </h1>
-          <p class="lede">
-            We design, build, and deploy AI agents and automation systems for
-            operations‑heavy teams.<br><strong>You ship outcomes not headcount.</strong>
-          </p>
-          <div class="hero-cta">
-            <a href="#cta" class="btn btn-primary">Book a free audit</a>
-            <a href="#services" class="btn btn-ghost">See our services →</a>
+        <h1 class="h1 hero-headline">
+          Scale operations<br>
+          with custom <em>AI workflows</em>.
+        </h1>
+        <div class="hero-row">
+          <div class="hero-copy">
+            <p class="lede">
+              We design, build, and deploy AI agents and automation systems for
+              operations‑heavy teams. Fixed-price builds. Outcome-measured.
+              You ship outcomes — not headcount.
+            </p>
+            <div class="hero-cta">
+              <a href="#cta" class="btn btn-primary">Book a free audit →</a>
+              <a href="#case" class="btn btn-ghost">See the work</a>
+            </div>
           </div>
           <div class="hero-stats">
-            <div class="stat"><span class="stat-num">$4000</span><span class="stat-lbl">saved/month per client</span></div>
-            <div class="stat"><span class="stat-num">99%</span><span class="stat-lbl">uptime</span></div>
-            <div class="stat"><span class="stat-num">14d</span><span class="stat-lbl">avg. time‑to‑deploy</span></div>
+            <div class="stat"><span class="stat-num">$1.4M</span><span class="stat-lbl">saved across clients in '25</span></div>
+            <div class="stat"><span class="stat-num">38</span><span class="stat-lbl">workflows shipped to production</span></div>
+            <div class="stat"><span class="stat-num">14d</span><span class="stat-lbl">average time to deploy</span></div>
           </div>
         </div>
-        <div class="hero-visual">
+        <div style="display:none"><div class="hero-visual">
           <div class="viz viz-graph">
             <svg viewBox="15 0 480 360" class="viz-svg" preserveAspectRatio="xMidYMid meet">
               <defs>
@@ -777,8 +775,7 @@ body::before {
               </g>
             </svg>
           </div>
-        </div>
-      </div>
+        </div></div><!-- end hidden -->
     </section>
 
     <!-- ========== Trust ========== -->
