@@ -331,30 +331,34 @@ body::before {
 /* ---------- Why-now banner ---------- */
 .why-now-banner {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 64px;
-  padding: 56px 0;
+  gap: 80px;
+  padding: 72px 0;
   margin-bottom: 48px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .why-now-headline {
-  flex: 0 0 58%;
-  font-size: clamp(32px, 3.8vw, 54px);
+  flex: 0 0 52%;
+  font-size: clamp(28px, 3.6vw, 52px);
   font-weight: 700;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--ink);
   margin: 0;
 }
 .why-now-body {
   flex: 1;
+  align-self: center;
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--ink-dim);
   margin: 0;
 }
 .why-now-body em { font-style: italic; }
 @media (max-width: 640px) {
-  .why-now-banner { flex-direction: column; gap: 24px; padding: 32px 0 24px; }
+  .why-now-banner { flex-direction: column; gap: 24px; padding: 40px 0 32px; border-top: 1px solid var(--line); border-bottom: none; }
   .why-now-headline { flex: none; }
 }
 
@@ -696,7 +700,6 @@ body::before {
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="dot dot-live"></span> AI Automation Agency · Est. 2024</div>
           <h1 class="h1">
             Scale your operations<br>
             with custom <em>AI workflows</em><br>
