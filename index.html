@@ -181,7 +181,7 @@ body::before {
   padding: 0 var(--pad);
 }
 .section { margin-top: var(--gap-section); }
-.hero { padding-top: 24px; padding-bottom: 0; margin-top: 0; }
+.hero { padding-top: 80px; padding-bottom: 80px; margin-top: 0; }
 .trust { margin-top: 80px; }
 
 .section-label {
@@ -229,7 +229,7 @@ body::before {
 }
 .h2 em { color: var(--accent); }
 .h2-tight { margin-bottom: 12px; }
-.lede { font-size: 19px; line-height: 1.5; color: var(--ink-dim); max-width: 540px; margin: 0 0 32px; }
+.lede { font-size: 18px; line-height: 1.6; color: var(--ink-dim); max-width: 580px; margin: 0 0 36px; }
 .lede-sm { font-size: 16px; max-width: 480px; }
 .link { color: var(--accent); border-bottom: 1px solid color-mix(in oklab, var(--accent) 50%, transparent); }
 .link:hover { border-bottom-color: var(--accent); }
@@ -237,21 +237,30 @@ body::before {
 /* ---------- Hero ---------- */
 .hero-grid {
   display: grid; grid-template-columns: 1.05fr 1fr;
-  gap: 64px; align-items: start; min-height: 640px;
+  gap: 72px; align-items: center; min-height: 600px;
 }
 .hero-cta { display: flex; gap: 12px; margin-bottom: 48px; }
 .hero-stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   border-top: 1px solid var(--line);
-  padding-top: 32px;
-  max-width: 540px;
+  padding-top: 40px;
+  margin-top: 8px;
 }
-.stat { display: flex; flex-direction: column; gap: 4px; }
-.stat-num { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; }
-.stat-lbl { font-size: 12px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; }
+.stat {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 20px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.stat-num { font-size: 32px; font-weight: 600; letter-spacing: -0.04em; color: var(--ink); }
+.stat-lbl { font-size: 11px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.4; }
 
-.hero-visual { position: relative; aspect-ratio: 1.1 / 1; }
+.hero-visual {
+  position: relative; aspect-ratio: 1.05 / 1;
+  filter: drop-shadow(0 32px 80px color-mix(in oklab, var(--accent) 18%, transparent));
+}
 
 /* ---------- Hero workflow visualization ---------- */
 .viz {
@@ -296,21 +305,28 @@ body::before {
 .annot-text { white-space: nowrap; }
 
 /* ---------- Trust ---------- */
+.trust { margin-top: 0; padding-top: 0; }
 .trust-label {
   font-family: 'Geist Mono', monospace;
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink-mute); text-align: center; margin-bottom: 24px;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-mute); text-align: center; margin-bottom: 20px;
 }
 .trust-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: 48px; padding: 24px 0;
+  gap: 8px; padding: 20px 0;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
 }
 .trust-logo {
   font-family: 'Geist Mono', monospace;
-  font-size: 13px; letter-spacing: 0.12em;
+  font-size: 12px; letter-spacing: 0.10em;
   color: var(--ink-mute); font-weight: 500;
+  padding: 8px 20px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-elev);
+  transition: color 0.15s, border-color 0.15s;
 }
+.trust-logo:hover { color: var(--ink); border-color: var(--line-strong); }
 
 /* ---------- Value cards ---------- */
 .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -628,8 +644,9 @@ body::before {
         <span class="logo-word">Querent</span>
       </a>
       <nav class="nav">
-        <a href="#services" class="is-active">Services</a>
-        <a href="menu.html">Menu</a>
+        <a href="#top" class="is-active">Home</a>
+        <a href="menu.html">Solutions</a>
+        <a href="#case">Case Studies</a>
         <a href="#process">Process</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -638,7 +655,7 @@ body::before {
           <svg class="theme-toggle-sun"  viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
           <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
-        <a href="#cta" class="btn btn-primary btn-sm">Book a Call →</a>
+        <a href="booking.html" class="btn btn-primary btn-sm">Book a Call →</a>
       </div>
     </div>
   </header>
