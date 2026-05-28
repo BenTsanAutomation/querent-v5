@@ -328,6 +328,36 @@ body::before {
 }
 .trust-logo:hover { color: var(--ink); border-color: var(--line-strong); }
 
+/* ---------- Why-now banner ---------- */
+.why-now-banner {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 56px 0;
+  margin-bottom: 48px;
+}
+.why-now-headline {
+  flex: 0 0 58%;
+  font-size: clamp(32px, 3.8vw, 54px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.why-now-body {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-dim);
+  margin: 0;
+}
+.why-now-body em { font-style: italic; }
+@media (max-width: 640px) {
+  .why-now-banner { flex-direction: column; gap: 24px; padding: 32px 0 24px; }
+  .why-now-headline { flex: none; }
+}
+
 /* ---------- Value cards ---------- */
 .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .value-card {
@@ -762,11 +792,11 @@ body::before {
 
     <!-- ========== Why AI · Why now ========== -->
     <section class="section">
-      <div class="section-head">
-        <h2 class="h2">The window to operate without AI...<br>is closing fast.</h2>
-        <p class="lede lede-sm">
-          The economics already favor teams that automate. The question is no
-          longer <em>whether</em> it's <em>where to start</em>, and how to
+      <div class="why-now-banner">
+        <h2 class="why-now-headline">The window to operate<br>without AI is closing fast.</h2>
+        <p class="why-now-body">
+          The economics already favor teams that automate. The question isn't
+          <em>whether</em> — it's <em>where to start</em>, and how to
           ship it without burning a year of runway.
         </p>
       </div>
