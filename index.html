@@ -235,47 +235,43 @@ body::before {
 .link:hover { border-bottom-color: var(--accent); }
 
 /* ---------- Hero ---------- */
-.hero-top {
-  margin-bottom: 40px;
-}
 .hero-headline {
   margin: 0;
-  font-size: clamp(28px, 3.6vw, 52px);
-  line-height: 1.08; letter-spacing: -0.03em; font-weight: 600;
+  font-size: clamp(32px, 4.2vw, 60px);
+  line-height: 1.06; letter-spacing: -0.03em; font-weight: 600;
 }
 .hero-headline em { color: var(--accent); position: relative; }
 .hero-headline em::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 3px;
   height: 5px; background: var(--accent); opacity: 0.18; border-radius: 4px;
 }
-.hero-body {
-  display: flex; align-items: flex-start; gap: 64px;
+.hero-main-row {
+  display: flex; gap: 48px; align-items: center; margin-bottom: 40px;
 }
-.hero-left {
-  flex: 0 0 460px;
-  display: flex; flex-direction: column; gap: 32px;
+.hero-bottom {
+  display: flex; gap: 80px; align-items: center;
+  border-top: 1px solid var(--line); padding-top: 36px;
 }
 .hero-copy {
   flex: 1;
-  display: flex; flex-direction: column; justify-content: center;
-  padding-top: 24px;
+  display: flex; flex-direction: column; justify-content: flex-start;
 }
-.hero-cta { display: flex; gap: 12px; margin-top: 28px; }
+.hero-cta { display: flex; gap: 12px; margin-top: 14px; }
 .hero-stats {
-  display: flex; gap: 32px; align-items: flex-start;
-  border-top: 1px solid var(--line); padding-top: 24px;
+  display: flex; gap: 40px; align-items: flex-start;
   flex-wrap: wrap;
 }
 .stat {
-  display: flex; flex-direction: column; gap: 5px;
+  display: flex; flex-direction: column; gap: 8px;
 }
 .stat-num { font-size: 36px; font-weight: 600; letter-spacing: -0.04em; color: var(--ink); }
 .stat-lbl { font-size: 12px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; max-width: 120px; }
 
 .hero-visual {
-  width: 100%;
-  position: relative; aspect-ratio: 1.05 / 1;
-  filter: drop-shadow(0 32px 80px color-mix(in oklab, var(--accent) 18%, transparent));
+  flex-shrink: 0;
+  width: 460px; height: 290px;
+  position: relative;
+  filter: drop-shadow(0 20px 50px color-mix(in oklab, var(--accent) 18%, transparent));
 }
 
 /* ---------- Hero workflow visualization ---------- */
@@ -288,7 +284,7 @@ body::before {
   display: flex; flex-direction: column;
   box-shadow: 0 40px 80px -40px rgba(0,0,0,0.6), 0 0 0 1px var(--line) inset;
 }
-.viz-graph { padding: 32px; }
+.viz-graph { padding: 16px; }
 .viz-svg { width: 100%; height: 100%; color: var(--ink-mute); }
 .viz-edges { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 4 4; opacity: 0.7; }
 .viz-node rect { fill: var(--bg-elev-2); stroke: var(--line-strong); stroke-width: 1; }
@@ -350,7 +346,7 @@ body::before {
   flex-direction: row;
   align-items: center;
   gap: 80px;
-  padding: 72px 0;
+  padding: 40px 0 72px;
   margin-bottom: 48px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -666,9 +662,9 @@ body::before {
   :root { --pad: 32px; --gap-section: 96px; }
   .hdr-inner { gap: 16px; }
   .nav { display: none; }
-  .hero-body { flex-direction: column; align-items: flex-start; gap: 32px; }
-  .hero-left { flex: 0 0 auto; width: 100%; }
+  .hero-main-row { flex-direction: column; gap: 24px; }
   .hero-visual { width: 100%; max-width: 100%; }
+  .hero-bottom { flex-direction: column; gap: 24px; }
   .hero-stats { gap: 24px; flex-wrap: wrap; }
   .annot { display: none; }
   .value-grid { grid-template-columns: 1fr; }
@@ -713,17 +709,11 @@ body::before {
 
     <!-- ========== Hero ========== -->
     <section class="hero">
-        <div class="hero-top">
-          <h1 class="hero-headline">
-            Scale operations<br>
-            with custom <em>AI workflows</em>.
-          </h1>
-        </div><!-- end hero-top -->
-        <div class="hero-body">
-          <div class="hero-left">
-            <div class="hero-visual">
+        <div class="hero-main-row">
+          <h1 class="hero-headline">Take back your time with custom <em>AI Workflows</em>.</h1>
+          <div class="hero-visual">
             <div class="viz viz-graph">
-              <svg viewBox="15 0 480 360" class="viz-svg" preserveAspectRatio="xMidYMid meet">
+              <svg viewBox="15 40 480 270" class="viz-svg" preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                     <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -780,25 +770,26 @@ body::before {
                 </g>
               </svg>
             </div>
-            </div><!-- end hero-visual -->
+          </div><!-- end hero-visual -->
+        </div><!-- end hero-main-row -->
+        <div class="hero-bottom">
+            <div class="hero-copy">
+              <p class="lede">
+                We design, build, and deploy AI agents and automation systems for
+                operations‑heavy teams. Fixed-price builds. Outcome-measured.
+                You ship outcomes — not headcount.
+              </p>
+              <div class="hero-cta">
+                <a href="#cta" class="btn btn-primary">Book a free audit →</a>
+                <a href="#case" class="btn btn-ghost">See the work</a>
+              </div>
+            </div>
             <div class="hero-stats">
               <div class="stat"><span class="stat-num">$1.4M</span><span class="stat-lbl">saved across clients in '25</span></div>
               <div class="stat"><span class="stat-num">38</span><span class="stat-lbl">workflows shipped to production</span></div>
               <div class="stat"><span class="stat-num">14d</span><span class="stat-lbl">average time to deploy</span></div>
             </div>
-          </div><!-- end hero-left -->
-          <div class="hero-copy" style="order:-1">
-            <p class="lede">
-              We design, build, and deploy AI agents and automation systems for
-              operations‑heavy teams. Fixed-price builds. Outcome-measured.
-              You ship outcomes — not headcount.
-            </p>
-            <div class="hero-cta">
-              <a href="#cta" class="btn btn-primary">Book a free audit →</a>
-              <a href="#case" class="btn btn-ghost">See the work</a>
-            </div>
-          </div>
-        </div>
+          </div><!-- end hero-bottom -->
     </section>
 
     <!-- ========== Trust ========== -->
