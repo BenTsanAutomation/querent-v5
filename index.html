@@ -236,11 +236,10 @@ body::before {
 
 /* ---------- Hero ---------- */
 .hero-top {
-  display: flex; align-items: center; gap: 64px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 .hero-headline {
-  flex: 1; margin: 0; min-width: 0;
+  margin: 0;
   font-size: clamp(28px, 3.6vw, 52px);
   line-height: 1.08; letter-spacing: -0.03em; font-weight: 600;
 }
@@ -249,8 +248,11 @@ body::before {
   content: ""; position: absolute; left: 0; right: 0; bottom: 3px;
   height: 5px; background: var(--accent); opacity: 0.18; border-radius: 4px;
 }
-.hero-body { margin-bottom: 40px; }
-.hero-copy { max-width: 540px; }
+.hero-body {
+  display: flex; align-items: center; gap: 64px;
+  margin-bottom: 40px;
+}
+.hero-copy { flex: 1; max-width: 480px; }
 .hero-cta { display: flex; gap: 12px; margin-top: 28px; }
 .hero-stats {
   display: flex; gap: 40px; align-items: flex-start;
@@ -656,7 +658,7 @@ body::before {
   :root { --pad: 32px; --gap-section: 96px; }
   .hdr-inner { gap: 16px; }
   .nav { display: none; }
-  .hero-top { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .hero-body { flex-direction: column; align-items: flex-start; gap: 32px; }
   .hero-visual { flex: 0 0 auto; width: 100%; max-width: 100%; }
   .hero-stats { gap: 32px; flex-wrap: wrap; }
   .annot { display: none; }
@@ -707,6 +709,19 @@ body::before {
             Scale operations<br>
             with custom <em>AI workflows</em>.
           </h1>
+        </div><!-- end hero-top -->
+        <div class="hero-body">
+          <div class="hero-copy">
+            <p class="lede">
+              We design, build, and deploy AI agents and automation systems for
+              operations‑heavy teams. Fixed-price builds. Outcome-measured.
+              You ship outcomes — not headcount.
+            </p>
+            <div class="hero-cta">
+              <a href="#cta" class="btn btn-primary">Book a free audit →</a>
+              <a href="#case" class="btn btn-ghost">See the work</a>
+            </div>
+          </div>
           <div class="hero-visual">
           <div class="viz viz-graph">
             <svg viewBox="15 0 480 360" class="viz-svg" preserveAspectRatio="xMidYMid meet">
@@ -767,19 +782,6 @@ body::before {
             </svg>
           </div>
           </div><!-- end hero-visual -->
-        </div><!-- end hero-top -->
-        <div class="hero-body">
-          <div class="hero-copy">
-            <p class="lede">
-              We design, build, and deploy AI agents and automation systems for
-              operations‑heavy teams. Fixed-price builds. Outcome-measured.
-              You ship outcomes — not headcount.
-            </p>
-            <div class="hero-cta">
-              <a href="#cta" class="btn btn-primary">Book a free audit →</a>
-              <a href="#case" class="btn btn-ghost">See the work</a>
-            </div>
-          </div>
         </div>
         <div class="hero-stats">
           <div class="stat"><span class="stat-num">$1.4M</span><span class="stat-lbl">saved across clients in '25</span></div>
