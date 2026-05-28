@@ -249,14 +249,22 @@ body::before {
   height: 5px; background: var(--accent); opacity: 0.18; border-radius: 4px;
 }
 .hero-body {
-  display: flex; align-items: center; gap: 64px;
-  margin-bottom: 40px;
+  display: flex; align-items: flex-start; gap: 64px;
 }
-.hero-copy { flex: 1; max-width: 480px; }
+.hero-left {
+  flex: 0 0 460px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+.hero-copy {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding-top: 24px;
+}
 .hero-cta { display: flex; gap: 12px; margin-top: 28px; }
 .hero-stats {
-  display: flex; gap: 40px; align-items: flex-start;
-  border-top: 1px solid var(--line); padding-top: 32px;
+  display: flex; gap: 32px; align-items: flex-start;
+  border-top: 1px solid var(--line); padding-top: 24px;
+  flex-wrap: wrap;
 }
 .stat {
   display: flex; flex-direction: column; gap: 5px;
@@ -265,7 +273,7 @@ body::before {
 .stat-lbl { font-size: 12px; color: var(--ink-dim); font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; max-width: 120px; }
 
 .hero-visual {
-  flex: 0 0 460px; max-width: 460px;
+  width: 100%;
   position: relative; aspect-ratio: 1.05 / 1;
   filter: drop-shadow(0 32px 80px color-mix(in oklab, var(--accent) 18%, transparent));
 }
@@ -659,8 +667,9 @@ body::before {
   .hdr-inner { gap: 16px; }
   .nav { display: none; }
   .hero-body { flex-direction: column; align-items: flex-start; gap: 32px; }
-  .hero-visual { flex: 0 0 auto; width: 100%; max-width: 100%; }
-  .hero-stats { gap: 32px; flex-wrap: wrap; }
+  .hero-left { flex: 0 0 auto; width: 100%; }
+  .hero-visual { width: 100%; max-width: 100%; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
   .annot { display: none; }
   .value-grid { grid-template-columns: 1fr; }
   .case { grid-template-columns: 1fr; padding: 32px; }
@@ -711,6 +720,73 @@ body::before {
           </h1>
         </div><!-- end hero-top -->
         <div class="hero-body">
+          <div class="hero-left">
+            <div class="hero-visual">
+            <div class="viz viz-graph">
+              <svg viewBox="15 0 480 360" class="viz-svg" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                  </marker>
+                </defs>
+                <g class="viz-edges">
+                  <path d="M140,80  C200,80  200,180 230,180"/>
+                  <path d="M140,180 C200,180 200,180 230,180"/>
+                  <path d="M140,280 C200,280 200,180 230,180"/>
+                  <path d="M330,180 C360,180 360,90  390,90"/>
+                  <path d="M330,180 C360,180 360,180 390,180"/>
+                  <path d="M330,180 C360,180 360,270 390,270"/>
+                </g>
+                <g class="viz-pulses">
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M140,80  C200,80  200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M140,180 C200,180 200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M140,280 C200,280 200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" repeatCount="indefinite" path="M330,180 C360,180 360,90  390,90"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" begin="0.6s" repeatCount="indefinite" path="M330,180 C360,180 360,180 390,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M330,180 C360,180 360,270 390,270"/>
+                  </circle>
+                </g>
+                <g transform="translate(40,60)"  class="viz-node viz-node-anim" style="animation-delay:0s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Intake</text>
+                </g>
+                <g transform="translate(40,160)" class="viz-node viz-node-anim" style="animation-delay:0.4s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">CRM</text>
+                </g>
+                <g transform="translate(40,260)" class="viz-node viz-node-anim" style="animation-delay:0.8s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Inbox</text>
+                </g>
+                <g transform="translate(230,160)" class="viz-node viz-node-accent viz-node-pulse">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">AI Agent</text>
+                </g>
+                <g transform="translate(390,70)"  class="viz-node viz-node-anim" style="animation-delay:0s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Slack</text>
+                </g>
+                <g transform="translate(390,160)" class="viz-node viz-node-anim" style="animation-delay:0.6s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Sheet</text>
+                </g>
+                <g transform="translate(390,250)" class="viz-node viz-node-anim" style="animation-delay:1.2s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Email</text>
+                </g>
+              </svg>
+            </div>
+            </div><!-- end hero-visual -->
+            <div class="hero-stats">
+              <div class="stat"><span class="stat-num">$1.4M</span><span class="stat-lbl">saved across clients in '25</span></div>
+              <div class="stat"><span class="stat-num">38</span><span class="stat-lbl">workflows shipped to production</span></div>
+              <div class="stat"><span class="stat-num">14d</span><span class="stat-lbl">average time to deploy</span></div>
+            </div>
+          </div><!-- end hero-left -->
           <div class="hero-copy">
             <p class="lede">
               We design, build, and deploy AI agents and automation systems for
@@ -722,71 +798,6 @@ body::before {
               <a href="#case" class="btn btn-ghost">See the work</a>
             </div>
           </div>
-          <div class="hero-visual">
-          <div class="viz viz-graph">
-            <svg viewBox="15 0 480 360" class="viz-svg" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                  <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-                </marker>
-              </defs>
-              <g class="viz-edges">
-                <path d="M140,80  C200,80  200,180 230,180"/>
-                <path d="M140,180 C200,180 200,180 230,180"/>
-                <path d="M140,280 C200,280 200,180 230,180"/>
-                <path d="M330,180 C360,180 360,90  390,90"/>
-                <path d="M330,180 C360,180 360,180 390,180"/>
-                <path d="M330,180 C360,180 360,270 390,270"/>
-              </g>
-              <g class="viz-pulses">
-                <circle r="4" fill="currentColor" class="viz-pulse">
-                  <animateMotion dur="2.4s" repeatCount="indefinite" path="M140,80  C200,80  200,180 230,180"/>
-                </circle>
-                <circle r="4" fill="currentColor" class="viz-pulse">
-                  <animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M140,180 C200,180 200,180 230,180"/>
-                </circle>
-                <circle r="4" fill="currentColor" class="viz-pulse">
-                  <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M140,280 C200,280 200,180 230,180"/>
-                </circle>
-                <circle r="4" fill="currentColor" class="viz-pulse-out">
-                  <animateMotion dur="2s" repeatCount="indefinite" path="M330,180 C360,180 360,90  390,90"/>
-                </circle>
-                <circle r="4" fill="currentColor" class="viz-pulse-out">
-                  <animateMotion dur="2s" begin="0.6s" repeatCount="indefinite" path="M330,180 C360,180 360,180 390,180"/>
-                </circle>
-                <circle r="4" fill="currentColor" class="viz-pulse-out">
-                  <animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M330,180 C360,180 360,270 390,270"/>
-                </circle>
-              </g>
-              <g transform="translate(40,60)"  class="viz-node viz-node-anim" style="animation-delay:0s">
-                <rect width="100" height="40" rx="8"/><text x="50" y="25">Intake</text>
-              </g>
-              <g transform="translate(40,160)" class="viz-node viz-node-anim" style="animation-delay:0.4s">
-                <rect width="100" height="40" rx="8"/><text x="50" y="25">CRM</text>
-              </g>
-              <g transform="translate(40,260)" class="viz-node viz-node-anim" style="animation-delay:0.8s">
-                <rect width="100" height="40" rx="8"/><text x="50" y="25">Inbox</text>
-              </g>
-              <g transform="translate(230,160)" class="viz-node viz-node-accent viz-node-pulse">
-                <rect width="100" height="40" rx="8"/><text x="50" y="25">AI Agent</text>
-              </g>
-              <g transform="translate(390,70)"  class="viz-node viz-node-anim" style="animation-delay:0s">
-                <rect width="80" height="40" rx="8"/><text x="40" y="25">Slack</text>
-              </g>
-              <g transform="translate(390,160)" class="viz-node viz-node-anim" style="animation-delay:0.6s">
-                <rect width="80" height="40" rx="8"/><text x="40" y="25">Sheet</text>
-              </g>
-              <g transform="translate(390,250)" class="viz-node viz-node-anim" style="animation-delay:1.2s">
-                <rect width="80" height="40" rx="8"/><text x="40" y="25">Email</text>
-              </g>
-            </svg>
-          </div>
-          </div><!-- end hero-visual -->
-        </div>
-        <div class="hero-stats">
-          <div class="stat"><span class="stat-num">$1.4M</span><span class="stat-lbl">saved across clients in '25</span></div>
-          <div class="stat"><span class="stat-num">38</span><span class="stat-lbl">workflows shipped to production</span></div>
-          <div class="stat"><span class="stat-num">14d</span><span class="stat-lbl">average time to deploy</span></div>
         </div>
     </section>
 
