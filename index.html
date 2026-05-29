@@ -416,13 +416,20 @@ body::before {
 .svc-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; line-height: 1.5; }
 .svc-list li::before { content: "·"; color: var(--accent); position: absolute; left: 0; font-size: 20px; line-height: 0.9; top: 3px; }
+.svc-bottom {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; align-items: end;
+  margin-top: 28px; padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.svc-stack-col { display: flex; flex-direction: column; gap: 8px; }
 .svc-ba {
   display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center; gap: 12px;
   background: var(--bg-elev-2);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 18px 24px; margin-top: 28px;
+  padding: 18px 24px;
 }
 .svc-ba-col { display: flex; flex-direction: column; gap: 6px; }
 .svc-ba-col-after { text-align: right; align-items: flex-end; }
@@ -710,7 +717,7 @@ body::before {
     <!-- ========== Hero ========== -->
     <section class="hero">
         <div class="hero-main-row">
-          <h1 class="hero-headline">Recoup your time with custom <em>AI Workflows</em>.</h1>
+          <h1 class="hero-headline">Take back your time with custom <em>AI Workflows</em>.</h1>
           <div class="hero-visual">
             <div class="viz viz-graph">
               <svg viewBox="15 40 480 270" class="viz-svg" preserveAspectRatio="xMidYMid meet">
@@ -775,9 +782,7 @@ body::before {
         <div class="hero-bottom">
             <div class="hero-copy">
               <p class="lede">
-                We design, build, and deploy AI agents and automation systems for
-                operations‑heavy teams. Fixed-price builds. Outcome-measured.
-                You ship outcomes — not headcount.
+                We design, build, and deploy AI agents and automation systems for scaling teams. Ship outcomes... not headcount.
               </p>
               <div class="hero-cta">
                 <a href="#cta" class="btn btn-primary">Book a free audit →</a>
@@ -862,13 +867,6 @@ body::before {
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
                 <p>A unified concierge layer — chat, voice, and SMS — trained on your knowledge base, wired to your calendar, CRM, and ticketing. Sub‑second voice responses and human handoff when confidence drops.</p>
               </div>
-              <div class="svc-section">
-                <span class="svc-section-lbl">STACK</span>
-                <div class="svc-stack">
-                  <span class="chip">Voiceflow</span><span class="chip">Vapi</span><span class="chip">ElevenLabs</span>
-                  <span class="chip">Twilio</span><span class="chip">Intercom</span><span class="chip">HubSpot</span>
-                </div>
-              </div>
             </div>
             <div class="svc-col">
               <div class="svc-section">
@@ -883,15 +881,24 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="svc-ba">
-            <div class="svc-ba-col">
-              <span class="svc-section-lbl">BEFORE</span>
-              <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
+          <div class="svc-bottom">
+            <div class="svc-stack-col">
+              <span class="svc-section-lbl">STACK</span>
+              <div class="svc-stack">
+                  <span class="chip">Voiceflow</span><span class="chip">Vapi</span><span class="chip">ElevenLabs</span>
+                  <span class="chip">Twilio</span><span class="chip">Intercom</span><span class="chip">HubSpot</span>
+              </div>
             </div>
-            <div class="svc-ba-arrow">→</div>
-            <div class="svc-ba-col svc-ba-col-after">
-              <span class="svc-section-lbl">AFTER</span>
-              <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
+            <div class="svc-ba">
+              <div class="svc-ba-col">
+                <span class="svc-section-lbl">BEFORE</span>
+                <span class="svc-ba-val">Industry baseline · 32% after‑hours answer rate¹</span>
+              </div>
+              <div class="svc-ba-arrow">→</div>
+              <div class="svc-ba-col svc-ba-col-after">
+                <span class="svc-section-lbl">AFTER</span>
+                <span class="svc-ba-val">Case study · 100% answer rate, 12s avg. response²</span>
+              </div>
             </div>
           </div>
         </article>
@@ -911,13 +918,6 @@ body::before {
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
                 <p>End‑to‑end automation in n8n — the open‑source, self‑hostable workflow engine. No per‑task pricing, no vendor lock‑in, no caps on run volume. We wire Google Workspace, Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts.</p>
               </div>
-              <div class="svc-section">
-                <span class="svc-section-lbl">STACK</span>
-                <div class="svc-stack">
-                  <span class="chip">n8n</span><span class="chip">Google Workspace</span><span class="chip">Slack</span>
-                  <span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">Airtable</span>
-                </div>
-              </div>
             </div>
             <div class="svc-col">
               <div class="svc-section">
@@ -933,15 +933,24 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="svc-ba">
-            <div class="svc-ba-col">
-              <span class="svc-section-lbl">BEFORE</span>
-              <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
+          <div class="svc-bottom">
+            <div class="svc-stack-col">
+              <span class="svc-section-lbl">STACK</span>
+              <div class="svc-stack">
+                  <span class="chip">n8n</span><span class="chip">Google Workspace</span><span class="chip">Slack</span>
+                  <span class="chip">Zapier</span><span class="chip">Make</span><span class="chip">Airtable</span>
+              </div>
             </div>
-            <div class="svc-ba-arrow">→</div>
-            <div class="svc-ba-col svc-ba-col-after">
-              <span class="svc-section-lbl">AFTER</span>
-              <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
+            <div class="svc-ba">
+              <div class="svc-ba-col">
+                <span class="svc-section-lbl">BEFORE</span>
+                <span class="svc-ba-val">Case study · 14h/wk on manual reconciliation³</span>
+              </div>
+              <div class="svc-ba-arrow">→</div>
+              <div class="svc-ba-col svc-ba-col-after">
+                <span class="svc-section-lbl">AFTER</span>
+                <span class="svc-ba-val">Case study · 0.5h/wk · 99.4% accuracy³</span>
+              </div>
             </div>
           </div>
         </article>
@@ -961,13 +970,6 @@ body::before {
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
                 <p>Agentic prospecting: ICP discovery → deep account research (10‑K filings, news, hiring signals) → personalized first‑touch → reply triage straight into your rep's calendar.</p>
               </div>
-              <div class="svc-section">
-                <span class="svc-section-lbl">STACK</span>
-                <div class="svc-stack">
-                  <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">Smartlead</span>
-                  <span class="chip">Perplexity API</span><span class="chip">OpenAI</span>
-                </div>
-              </div>
             </div>
             <div class="svc-col">
               <div class="svc-section">
@@ -982,15 +984,24 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="svc-ba">
-            <div class="svc-ba-col">
-              <span class="svc-section-lbl">BEFORE</span>
-              <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
+          <div class="svc-bottom">
+            <div class="svc-stack-col">
+              <span class="svc-section-lbl">STACK</span>
+              <div class="svc-stack">
+                  <span class="chip">Clay</span><span class="chip">Apollo</span><span class="chip">Smartlead</span>
+                  <span class="chip">Perplexity API</span><span class="chip">OpenAI</span>
+              </div>
             </div>
-            <div class="svc-ba-arrow">→</div>
-            <div class="svc-ba-col svc-ba-col-after">
-              <span class="svc-section-lbl">AFTER</span>
-              <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
+            <div class="svc-ba">
+              <div class="svc-ba-col">
+                <span class="svc-section-lbl">BEFORE</span>
+                <span class="svc-ba-val">Industry baseline · SDRs spend ~64% of day on non‑selling tasks⁴</span>
+              </div>
+              <div class="svc-ba-arrow">→</div>
+              <div class="svc-ba-col svc-ba-col-after">
+                <span class="svc-section-lbl">AFTER</span>
+                <span class="svc-ba-val">Case study · 4.3× meetings booked at same headcount⁵</span>
+              </div>
             </div>
           </div>
         </article>
@@ -1010,13 +1021,6 @@ body::before {
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
                 <p>Internal agents that read PDFs, update CRMs, and reconcile spreadsheets. Approvals stay with humans; typing doesn't.</p>
               </div>
-              <div class="svc-section">
-                <span class="svc-section-lbl">STACK</span>
-                <div class="svc-stack">
-                  <span class="chip">LlamaIndex</span><span class="chip">Notion</span>
-                  <span class="chip">QuickBooks</span><span class="chip">Airtable</span><span class="chip">Slack</span>
-                </div>
-              </div>
             </div>
             <div class="svc-col">
               <div class="svc-section">
@@ -1030,15 +1034,24 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="svc-ba">
-            <div class="svc-ba-col">
-              <span class="svc-section-lbl">BEFORE</span>
-              <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
+          <div class="svc-bottom">
+            <div class="svc-stack-col">
+              <span class="svc-section-lbl">STACK</span>
+              <div class="svc-stack">
+                  <span class="chip">LlamaIndex</span><span class="chip">Notion</span>
+                  <span class="chip">QuickBooks</span><span class="chip">Airtable</span><span class="chip">Slack</span>
+              </div>
             </div>
-            <div class="svc-ba-arrow">→</div>
-            <div class="svc-ba-col svc-ba-col-after">
-              <span class="svc-section-lbl">AFTER</span>
-              <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
+            <div class="svc-ba">
+              <div class="svc-ba-col">
+                <span class="svc-section-lbl">BEFORE</span>
+                <span class="svc-ba-val">Case study · $6.2k/mo on data‑entry contractors⁶</span>
+              </div>
+              <div class="svc-ba-arrow">→</div>
+              <div class="svc-ba-col svc-ba-col-after">
+                <span class="svc-section-lbl">AFTER</span>
+                <span class="svc-ba-val">Case study · $0.4k/mo · zero typed errors⁶</span>
+              </div>
             </div>
           </div>
         </article>
@@ -1058,13 +1071,6 @@ body::before {
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
                 <p>Strategy hours, on retainer. We sit with your team during conception and design — aligning resources, scoping budgets, choosing tools, and writing the brief so the eventual build is the right one. Whether we ship it or someone else does.</p>
               </div>
-              <div class="svc-section">
-                <span class="svc-section-lbl">STACK</span>
-                <div class="svc-stack">
-                  <span class="chip">Workshop‑led</span><span class="chip">Custom</span>
-                  <span class="chip">Async + weekly working sessions</span>
-                </div>
-              </div>
             </div>
             <div class="svc-col">
               <div class="svc-section">
@@ -1080,15 +1086,24 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="svc-ba">
-            <div class="svc-ba-col">
-              <span class="svc-section-lbl">BEFORE</span>
-              <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
+          <div class="svc-bottom">
+            <div class="svc-stack-col">
+              <span class="svc-section-lbl">STACK</span>
+              <div class="svc-stack">
+                  <span class="chip">Workshop‑led</span><span class="chip">Custom</span>
+                  <span class="chip">Async + weekly working sessions</span>
+              </div>
             </div>
-            <div class="svc-ba-arrow">→</div>
-            <div class="svc-ba-col svc-ba-col-after">
-              <span class="svc-section-lbl">AFTER</span>
-              <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
+            <div class="svc-ba">
+              <div class="svc-ba-col">
+                <span class="svc-section-lbl">BEFORE</span>
+                <span class="svc-ba-val">Most teams · 4–6 stalled AI pilots, no shipped systems⁷</span>
+              </div>
+              <div class="svc-ba-arrow">→</div>
+              <div class="svc-ba-col svc-ba-col-after">
+                <span class="svc-section-lbl">AFTER</span>
+                <span class="svc-ba-val">Most teams · 1–2 funded, scoped, owner‑assigned builds⁷</span>
+              </div>
             </div>
           </div>
         </article>
