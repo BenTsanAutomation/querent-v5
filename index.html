@@ -582,8 +582,8 @@ body::before {
 /* ---------- FAQ ---------- */
 .faq-grid {
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 56px;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
   align-items: start;
 }
 @media (max-width: 860px) {
@@ -614,15 +614,10 @@ body::before {
 .faq-embed-wrap {
   position: sticky;
   top: 80px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
 }
-.faq-embed-label {
-  font-size: 11px;
-  font-family: 'Geist Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: oklch(0.72 0.14 185);
-  margin-bottom: 12px;
-}
+.faq-embed-label { display: none; }
 .fce-panel {
   display: flex; flex-direction: column;
   height: 500px;
@@ -1337,7 +1332,7 @@ body::before {
               </div>
               <div>
                 <div class="fce-header-title">Querent AI</div>
-                <div class="fce-header-sub">Ask about services, pricing, or process</div>
+                <div class="fce-header-sub">Have a question? Ask our AI</div>
               </div>
             </div>
             <div class="fce-messages" id="fce-messages">
