@@ -181,7 +181,7 @@ body::before {
   padding: 0 var(--pad);
 }
 .section { margin-top: var(--gap-section); }
-.hero { padding-top: 80px; padding-bottom: 80px; margin-top: 0; }
+.hero { padding-top: 80px; padding-bottom: 40px; margin-top: 0; }
 .trust { margin-top: 80px; }
 
 .section-label {
@@ -250,13 +250,13 @@ body::before {
 }
 .hero-bottom {
   display: flex; gap: 80px; align-items: center;
-  border-top: 1px solid var(--line); padding-top: 36px;
+  border-top: 1px solid var(--line); padding-top: 48px; padding-bottom: 16px;
 }
 .hero-copy {
   flex: 1;
   display: flex; flex-direction: column; justify-content: flex-start;
 }
-.hero-cta { display: flex; gap: 12px; margin-top: 14px; }
+.hero-cta { display: flex; gap: 12px; margin-top: 24px; }
 .hero-stats {
   display: flex; gap: 40px; align-items: flex-start;
   flex-wrap: wrap;
@@ -317,7 +317,7 @@ body::before {
 .annot-text { white-space: nowrap; }
 
 /* ---------- Trust ---------- */
-.trust { margin-top: 0; padding-top: 0; }
+.trust { margin-top: 0; padding-top: 0; margin-bottom: 0; }
 .trust-label {
   font-family: 'Geist Mono', monospace;
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
@@ -325,7 +325,7 @@ body::before {
 }
 .trust-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: 8px; padding: 20px 0;
+  gap: 8px; padding: 16px 0 12px;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
 }
 .trust-logo {
@@ -809,7 +809,7 @@ body::before {
     </section>
 
     <!-- ========== Why AI · Why now ========== -->
-    <section class="section">
+    <section class="section" style="margin-top:28px;">
       <div class="why-now-banner">
         <h2 class="why-now-headline">The window to operate<br>without AI is closing fast.</h2>
         <p class="why-now-body">
