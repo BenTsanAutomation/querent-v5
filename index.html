@@ -413,12 +413,13 @@ body::before {
   color: var(--ink-mute); display: block; margin-bottom: 4px;
 }
 .svc-section p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
-.svc-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
-.svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; line-height: 1.5; }
-.svc-list li::before { content: "·"; color: var(--accent); position: absolute; left: 0; font-size: 20px; line-height: 0.9; top: 3px; }
+.svc-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0; }
+.svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; line-height: 1.5; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.svc-list li:last-child { border-bottom: none; }
+.svc-list li::before { content: "·"; color: var(--accent); position: absolute; left: 0; font-size: 20px; line-height: 0.9; top: 13px; }
 .svc-bottom {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 24px; align-items: end;
+  gap: 24px; align-items: start;
   margin-top: 28px; padding-top: 24px;
   border-top: 1px solid var(--line);
 }
