@@ -326,7 +326,7 @@ body::before {
 .trust-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   gap: 8px; padding: 16px 0 12px;
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
 }
 .trust-logo {
   font-family: 'Geist Mono', monospace;
@@ -348,7 +348,6 @@ body::before {
   gap: 80px;
   padding: 40px 0 72px;
   margin-bottom: 48px;
-  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 .why-now-headline {
@@ -415,6 +414,7 @@ body::before {
 .svc-section p { margin: 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
 .svc-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0; }
 .svc-list li { font-size: 14px; color: var(--ink); position: relative; padding-left: 16px; line-height: 1.5; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.svc-list li:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
 .svc-list li:last-child { border-bottom: none; }
 .svc-list li::before { content: "·"; color: var(--accent); position: absolute; left: 0; font-size: 20px; line-height: 0.9; top: 13px; }
 .svc-bottom {
@@ -423,7 +423,7 @@ body::before {
   margin-top: 28px; padding-top: 24px;
   border-top: 1px solid var(--line);
 }
-.svc-stack-col { display: flex; flex-direction: column; gap: 8px; }
+.svc-stack-col { display: flex; flex-direction: column; gap: 8px; align-self: start; }
 .svc-ba {
   display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center; gap: 12px;
@@ -862,7 +862,7 @@ body::before {
               </div>
               <div class="svc-section">
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
-                <p>A unified concierge layer — chat, voice, and SMS — trained on your knowledge base, wired to your calendar, CRM, and ticketing. Sub‑second voice responses and human handoff when confidence drops.</p>
+                <p>A unified concierge layer for chat, voice, and SMS. Trained on your knowledge base and wired to your calendar, CRM, and ticketing. Sub‑second voice responses with human handoff when confidence drops.</p>
               </div>
             </div>
             <div class="svc-col">
@@ -903,7 +903,7 @@ body::before {
         <article class="svc-card" data-svc="workflow">
           <header class="svc-head">
             <h3 class="svc-name">Workflow Automation (n8n)</h3>
-            <p class="svc-sub">No‑code &amp; low‑code plumbing across the tools you already pay for — built on n8n, owned by you.</p>
+            <p class="svc-sub">No‑code &amp; low‑code plumbing across the tools you already pay for, built on n8n and owned by you.</p>
           </header>
           <div class="svc-body">
             <div class="svc-col">
@@ -913,7 +913,7 @@ body::before {
               </div>
               <div class="svc-section">
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
-                <p>End‑to‑end automation in n8n — the open‑source, self‑hostable workflow engine. No per‑task pricing, no vendor lock‑in, no caps on run volume. We wire Google Workspace, Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts.</p>
+                <p>End‑to‑end automation in n8n, the open‑source self‑hostable workflow engine. No per‑task pricing, no vendor lock‑in, no caps on run volume. We wire Google Workspace, Slack, and your CRM into resilient flows with retries, alerts, and dashboards your team trusts.</p>
               </div>
             </div>
             <div class="svc-col">
@@ -1066,7 +1066,7 @@ body::before {
               </div>
               <div class="svc-section">
                 <span class="svc-section-lbl">WHAT WE BUILD</span>
-                <p>Strategy hours, on retainer. We sit with your team during conception and design — aligning resources, scoping budgets, choosing tools, and writing the brief so the eventual build is the right one. Whether we ship it or someone else does.</p>
+                <p>Strategy hours, on retainer. We sit with your team during conception and design: aligning resources, scoping budgets, choosing tools, and writing the brief so the eventual build is the right one. Whether we ship it or someone else does.</p>
               </div>
             </div>
             <div class="svc-col">
@@ -1565,7 +1565,7 @@ body::before {
     </div>
     <div class="cw-messages" id="cw-messages">
       <div class="cw-msg cw-msg-agent">
-        <div class="cw-bubble">Hey! I'm Querent's AI assistant. Ask me about our services, pricing, or process — or I can help you book a demo.</div>
+        <div class="cw-bubble">Hey! I'm Querent's AI assistant. Ask me about our services, pricing, or process, or I can help you book a demo.</div>
       </div>
     </div>
     <div class="cw-input-row">
