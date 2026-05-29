@@ -1593,10 +1593,8 @@ body::before {
   var inputEl = document.getElementById('cw-input');
   var sendBtn = document.getElementById('cw-send');
 
-  var sessionId = null;
+  var chatHistory = []; // [{role:'user',content:''},{role:'assistant',content:''}]
   var isStreaming = false;
-
-  try { sessionId = localStorage.getItem('querent-chat-session'); } catch (e) {}
 
   // Toggle panel open/close
   function togglePanel() {
@@ -1755,21 +1753,13 @@ body::before {
     var firstToken = false;
 
     try {
-      var payload = { message: text };
-      if (sessionId) payload.session_id = sessionId;
+      var payload = { message: text, messages: chatHistory };
 
       var res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      // Capture session id from response header
-      var newSid = res.headers.get('X-Session-Id');
-      if (newSid) {
-        sessionId = newSid;
-        try { localStorage.setItem('querent-chat-session', newSid); } catch (e) {}
-      }
 
       if (!res.ok) {
         removeThinking();
@@ -1841,6 +1831,14 @@ body::before {
           agentBubble.parentNode.appendChild(btn);
         }
         scrollToBottom();
+      }
+
+      // Save to conversation history for context on next turn
+      if (cleanText) {
+        chatHistory.push({ role: 'user', content: text });
+        chatHistory.push({ role: 'assistant', content: cleanText });
+        // Cap at last 20 messages (10 turns) to stay within token budget
+        if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
       }
 
     } catch (err) {
