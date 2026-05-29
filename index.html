@@ -580,6 +580,16 @@ body::before {
 }
 
 /* ---------- FAQ ---------- */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-embed-wrap { display: none; }
+}
 .faq { display: flex; flex-direction: column; }
 .faq-row {
   border-top: 1px solid var(--line);
@@ -599,6 +609,132 @@ body::before {
   max-width: 640px; line-height: 1.6;
 }
 .faq-row:not(.is-open) .faq-a { display: none; }
+
+/* ---------- FAQ embedded chat ---------- */
+.faq-embed-wrap {
+  position: sticky;
+  top: 80px;
+}
+.faq-embed-label {
+  font-size: 11px;
+  font-family: 'Geist Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: oklch(0.72 0.14 185);
+  margin-bottom: 12px;
+}
+.fce-panel {
+  display: flex; flex-direction: column;
+  height: 500px;
+  background: rgba(13,15,20,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px -16px rgba(0,0,0,0.5);
+}
+.fce-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.fce-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: oklch(0.72 0.14 185 / 0.18);
+  border: 1px solid oklch(0.72 0.14 185 / 0.4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.fce-avatar svg { width: 14px; height: 14px; color: oklch(0.72 0.14 185); }
+.fce-header-title { font-size: 13px; font-weight: 600; color: #eceef2; }
+.fce-header-sub { font-size: 11px; color: #8a8f99; }
+.fce-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.fce-messages::-webkit-scrollbar { width: 4px; }
+.fce-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+.fce-msg { display: flex; flex-direction: column; max-width: 88%; }
+.fce-msg-user { align-self: flex-end; align-items: flex-end; }
+.fce-msg-agent { align-self: flex-start; align-items: flex-start; }
+.fce-bubble {
+  padding: 9px 13px;
+  border-radius: 13px;
+  font-size: 13.5px; line-height: 1.5;
+}
+.fce-msg-user .fce-bubble {
+  background: oklch(0.72 0.14 185);
+  color: #0A0B0E;
+  border-bottom-right-radius: 4px;
+}
+.fce-msg-agent .fce-bubble {
+  background: rgba(255,255,255,0.06);
+  color: #eceef2;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom-left-radius: 4px;
+}
+.fce-bubble strong { font-weight: 600; }
+.fce-bubble em { font-style: italic; }
+.fce-bubble code { font-family: 'Geist Mono', monospace; font-size: 12px; background: rgba(0,0,0,0.3); padding: 1px 4px; border-radius: 3px; }
+.fce-bubble ul, .fce-bubble ol { padding-left: 18px; margin: 4px 0; }
+.fce-bubble li { margin: 2px 0; }
+.fce-bubble p { margin: 0 0 5px; }
+.fce-bubble p:last-child { margin-bottom: 0; }
+.fce-thinking {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 13px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 13px; border-bottom-left-radius: 4px;
+  color: #8a8f99; font-size: 12px;
+}
+.fce-book-btn {
+  margin-top: 7px;
+  padding: 7px 14px;
+  background: oklch(0.72 0.14 185);
+  color: #0A0B0E;
+  border: none; border-radius: 8px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s ease;
+  align-self: flex-start;
+}
+.fce-book-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -6px oklch(0.72 0.14 185); }
+.fce-input-row {
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 8px; align-items: flex-end;
+  flex-shrink: 0;
+}
+.fce-textarea {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 8px 11px;
+  color: #eceef2;
+  font: inherit; font-size: 13.5px;
+  resize: none; outline: none;
+  max-height: 80px; min-height: 36px;
+  line-height: 1.4;
+  transition: border-color 0.15s;
+}
+.fce-textarea:focus { border-color: oklch(0.72 0.14 185 / 0.6); }
+.fce-textarea::placeholder { color: #5a5f69; }
+.fce-send-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: oklch(0.72 0.14 185);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.fce-send-btn:hover { transform: scale(1.05); }
+.fce-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.fce-send-btn svg { width: 15px; height: 15px; color: #0A0B0E; }
 
 /* ---------- CTA ---------- */
 .cta-wrap { margin-top: var(--gap-section); padding-bottom: 80px; }
@@ -1166,26 +1302,56 @@ body::before {
     <!-- ========== FAQ ========== -->
     <section class="section" id="faq">
       <div class="section-head"><h2 class="h2">Frequently asked.</h2></div>
-      <div class="faq" id="faq-list">
-        <div class="faq-row is-open">
-          <div class="faq-q"><span class="mono dim">01</span><span>How is pricing structured?</span><span class="faq-toggle">−</span></div>
-          <div class="faq-a">We quote fixed‑price per build, scoped to an outcome metric. No hourly billing. Most builds land between $8k–$45k; retainers and strategy hours start at $4.5k/mo.</div>
+      <div class="faq-grid">
+        <!-- Left: accordion -->
+        <div class="faq" id="faq-list">
+          <div class="faq-row is-open">
+            <div class="faq-q"><span class="mono dim">01</span><span>How is pricing structured?</span><span class="faq-toggle">−</span></div>
+            <div class="faq-a">We quote fixed‑price per build, scoped to an outcome metric. No hourly billing. Most builds land between $8k–$45k; retainers and strategy hours start at $4.5k/mo.</div>
+          </div>
+          <div class="faq-row">
+            <div class="faq-q"><span class="mono dim">02</span><span>Do you replace our staff?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a">No. We replace the worst parts of their week. Every deployment includes an approvals layer so humans stay in the loop on judgement calls.</div>
+          </div>
+          <div class="faq-row">
+            <div class="faq-q"><span class="mono dim">03</span><span>What stacks do you work with?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a">n8n, Voiceflow, Vapi, Zapier, Make, OpenAI, Anthropic, HubSpot, Salesforce, Google Workspace, Slack, Airtable, Notion, Twilio. If it has an API, we can wire it.</div>
+          </div>
+          <div class="faq-row">
+            <div class="faq-q"><span class="mono dim">04</span><span>How long until we see ROI?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a">Workflow automations typically pay back within 30–60 days. Concierge agents within 90. We model this in the strategy phase before you commit.</div>
+          </div>
+          <div class="faq-row">
+            <div class="faq-q"><span class="mono dim">05</span><span>Who owns the system?</span><span class="faq-toggle">+</span></div>
+            <div class="faq-a">You do. Every build is delivered with full source, credentials, and SOPs in your accounts. We can stay on retainer or hand off entirely.</div>
+          </div>
         </div>
-        <div class="faq-row">
-          <div class="faq-q"><span class="mono dim">02</span><span>Do you replace our staff?</span><span class="faq-toggle">+</span></div>
-          <div class="faq-a">No. We replace the worst parts of their week. Every deployment includes an approvals layer so humans stay in the loop on judgement calls.</div>
-        </div>
-        <div class="faq-row">
-          <div class="faq-q"><span class="mono dim">03</span><span>What stacks do you work with?</span><span class="faq-toggle">+</span></div>
-          <div class="faq-a">n8n, Voiceflow, Vapi, Zapier, Make, OpenAI, Anthropic, HubSpot, Salesforce, Google Workspace, Slack, Airtable, Notion, Twilio. If it has an API, we can wire it.</div>
-        </div>
-        <div class="faq-row">
-          <div class="faq-q"><span class="mono dim">04</span><span>How long until we see ROI?</span><span class="faq-toggle">+</span></div>
-          <div class="faq-a">Workflow automations typically pay back within 30–60 days. Concierge agents within 90. We model this in the strategy phase before you commit.</div>
-        </div>
-        <div class="faq-row">
-          <div class="faq-q"><span class="mono dim">05</span><span>Who owns the system?</span><span class="faq-toggle">+</span></div>
-          <div class="faq-a">You do. Every build is delivered with full source, credentials, and SOPs in your accounts. We can stay on retainer or hand off entirely.</div>
+
+        <!-- Right: embedded chat -->
+        <div class="faq-embed-wrap">
+          <div class="faq-embed-label">Have a question? Ask our AI</div>
+          <div class="fce-panel">
+            <div class="fce-header">
+              <div class="fce-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="fce-header-title">Querent AI</div>
+                <div class="fce-header-sub">Ask about services, pricing, or process</div>
+              </div>
+            </div>
+            <div class="fce-messages" id="fce-messages">
+              <div class="fce-msg fce-msg-agent">
+                <div class="fce-bubble">Hi! Got a question not covered in the FAQ? Ask me anything about our services, pricing, or how we work.</div>
+              </div>
+            </div>
+            <div class="fce-input-row">
+              <textarea class="fce-textarea" id="fce-input" rows="1" placeholder="Ask a question..." aria-label="Chat message"></textarea>
+              <button class="fce-send-btn" id="fce-send" aria-label="Send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1852,6 +2018,119 @@ body::before {
     }
   }
 
+})();
+</script>
+
+<!-- ========== FAQ Embedded Chat ========== -->
+<script>
+(function () {
+  var CALENDLY_URL = 'https://calendly.com/querent-ai/30min';
+
+  var messagesEl = document.getElementById('fce-messages');
+  var inputEl    = document.getElementById('fce-input');
+  var sendBtn    = document.getElementById('fce-send');
+  if (!messagesEl || !inputEl || !sendBtn) return;
+
+  var chatHistory = [];
+  var isStreaming = false;
+
+  function scrollToBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+
+  function renderMarkdown(text) {
+    var html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    html = html.replace(/```[\s\S]*?```/g, function(m){var c=m.slice(3,-3).replace(/^[a-z]*\n/,'');return '<pre><code>'+c+'</code></pre>';});
+    html = html.replace(/`([^`]+)`/g,'<code>$1</code>');
+    html = html.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+    html = html.replace(/\*([^*]+)\*/g,'<em>$1</em>');
+    html = html.replace(/^[ \t]*[-*] (.+)$/gm,'<li>$1</li>');
+    html = html.replace(/(<li>[\s\S]*?<\/li>)+/g,'<ul>$&</ul>');
+    html = html.split(/\n\n+/).map(function(p){p=p.trim();if(!p||p.startsWith('<ul>')||p.startsWith('<pre>'))return p;return '<p>'+p.replace(/\n/g,'<br>')+'</p>';}).join('');
+    return html;
+  }
+
+  function openCalendly() {
+    if (window.Calendly) Calendly.initPopupWidget({ url: CALENDLY_URL });
+    else window.open(CALENDLY_URL, '_blank');
+  }
+
+  function appendUser(text) {
+    var m = document.createElement('div'); m.className='fce-msg fce-msg-user';
+    var b = document.createElement('div'); b.className='fce-bubble'; b.textContent=text;
+    m.appendChild(b); messagesEl.appendChild(m); scrollToBottom();
+  }
+
+  function appendThinking() {
+    var m = document.createElement('div'); m.className='fce-msg fce-msg-agent'; m.id='fce-thinking';
+    var i = document.createElement('div'); i.className='fce-thinking';
+    i.innerHTML='<span>Thinking</span><span class="cw-dots"><span class="cw-dot"></span><span class="cw-dot"></span><span class="cw-dot"></span></span>';
+    m.appendChild(i); messagesEl.appendChild(m); scrollToBottom();
+  }
+
+  function removeThinking() { var e=document.getElementById('fce-thinking'); if(e) e.remove(); }
+
+  function appendAgent(text, showBook) {
+    var m = document.createElement('div'); m.className='fce-msg fce-msg-agent';
+    var b = document.createElement('div'); b.className='fce-bubble'; b.innerHTML=renderMarkdown(text);
+    m.appendChild(b);
+    if (showBook) {
+      var btn=document.createElement('button'); btn.className='fce-book-btn'; btn.textContent='Book a Demo';
+      btn.addEventListener('click',openCalendly); m.appendChild(btn);
+    }
+    messagesEl.appendChild(m); scrollToBottom();
+    return b;
+  }
+
+  function appendError() {
+    var m=document.createElement('div'); m.className='fce-msg fce-msg-agent';
+    var b=document.createElement('div'); b.className='fce-bubble'; b.textContent="I'm having trouble connecting. Please try again or book a demo directly.";
+    m.appendChild(b);
+    var btn=document.createElement('button'); btn.className='fce-book-btn'; btn.textContent='Book a Demo';
+    btn.addEventListener('click',openCalendly); m.appendChild(btn);
+    messagesEl.appendChild(m); scrollToBottom();
+  }
+
+  inputEl.addEventListener('input', function(){ inputEl.style.height='auto'; inputEl.style.height=Math.min(inputEl.scrollHeight,80)+'px'; });
+  inputEl.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(!isStreaming)send();} });
+  sendBtn.addEventListener('click', function(){ if(!isStreaming)send(); });
+
+  async function send() {
+    var text = inputEl.value.trim(); if(!text) return;
+    inputEl.value=''; inputEl.style.height='auto';
+    isStreaming=true; sendBtn.disabled=true;
+    appendUser(text); appendThinking();
+    var accum='', bubble=null, firstToken=false;
+    try {
+      var res = await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,messages:chatHistory})});
+      if(!res.ok){removeThinking();appendError();return;}
+      var reader=res.body.getReader(), decoder=new TextDecoder(), buf='';
+      while(true){
+        var chunk=await reader.read(); if(chunk.done)break;
+        buf+=decoder.decode(chunk.value,{stream:true});
+        var lines=buf.split('\n'); buf=lines.pop();
+        for(var i=0;i<lines.length;i++){
+          var line=lines[i].trim(); if(!line.startsWith('data:'))continue;
+          var json=line.slice(5).trim(); if(!json||json==='[DONE]')continue;
+          var evt; try{evt=JSON.parse(json);}catch(e){continue;}
+          if(evt.type==='delta'){
+            if(!firstToken){removeThinking();firstToken=true;bubble=appendAgent('',false);}
+            accum+=(evt.text||evt.content||evt.delta||'');
+            bubble.innerHTML=renderMarkdown(accum.replace(/\[BOOK_DEMO\]/g,'').trim());
+            scrollToBottom();
+          } else if(evt.type==='error'){removeThinking();appendError();return;}
+        }
+      }
+      removeThinking();
+      var hasBook=accum.includes('[BOOK_DEMO]'), clean=accum.replace(/\[BOOK_DEMO\]/g,'').trim();
+      if(!firstToken){appendAgent(clean,hasBook);}
+      else if(bubble){
+        bubble.innerHTML=renderMarkdown(clean);
+        if(hasBook){var b2=document.createElement('button');b2.className='fce-book-btn';b2.textContent='Book a Demo';b2.addEventListener('click',openCalendly);bubble.parentNode.appendChild(b2);}
+        scrollToBottom();
+      }
+      if(clean){chatHistory.push({role:'user',content:text});chatHistory.push({role:'assistant',content:clean});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);}
+    } catch(err){console.error('fce error:',err);removeThinking();appendError();}
+    finally{isStreaming=false;sendBtn.disabled=false;}
+  }
 })();
 </script>
 
