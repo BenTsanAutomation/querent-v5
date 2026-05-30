@@ -952,8 +952,63 @@ body::before {
         <div class="hero-main-row">
           <h1 class="hero-headline">Take back your time with custom <em>AI Workflows</em>.</h1>
           <div class="hero-visual">
-            <div class="viz-img-wrap">
-              <img src="/agent-diagram.jpg" alt="AI Agent workflow diagram" style="width:100%;height:auto;display:block;border-radius:16px;">
+            <div class="viz viz-graph">
+              <svg viewBox="15 40 480 270" class="viz-svg" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                  </marker>
+                </defs>
+                <g class="viz-edges">
+                  <path d="M140,80  C200,80  200,180 230,180"/>
+                  <path d="M140,180 C200,180 200,180 230,180"/>
+                  <path d="M140,280 C200,280 200,180 230,180"/>
+                  <path d="M330,180 C360,180 360,90  390,90"/>
+                  <path d="M330,180 C360,180 360,180 390,180"/>
+                  <path d="M330,180 C360,180 360,270 390,270"/>
+                </g>
+                <g class="viz-pulses">
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M140,80  C200,80  200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M140,180 C200,180 200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse">
+                    <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M140,280 C200,280 200,180 230,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" repeatCount="indefinite" path="M330,180 C360,180 360,90  390,90"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" begin="0.6s" repeatCount="indefinite" path="M330,180 C360,180 360,180 390,180"/>
+                  </circle>
+                  <circle r="4" fill="currentColor" class="viz-pulse-out">
+                    <animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M330,180 C360,180 360,270 390,270"/>
+                  </circle>
+                </g>
+                <g transform="translate(40,60)"  class="viz-node viz-node-anim" style="animation-delay:0s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Intake</text>
+                </g>
+                <g transform="translate(40,160)" class="viz-node viz-node-anim" style="animation-delay:0.4s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">CRM</text>
+                </g>
+                <g transform="translate(40,260)" class="viz-node viz-node-anim" style="animation-delay:0.8s">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Inbox</text>
+                </g>
+                <g transform="translate(230,160)" class="viz-node viz-node-accent viz-node-pulse">
+                  <rect width="100" height="40" rx="8"/><text x="50" y="25">AI Agent</text>
+                </g>
+                <g transform="translate(390,70)"  class="viz-node viz-node-anim" style="animation-delay:0s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Slack</text>
+                </g>
+                <g transform="translate(390,160)" class="viz-node viz-node-anim" style="animation-delay:0.6s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Sheet</text>
+                </g>
+                <g transform="translate(390,250)" class="viz-node viz-node-anim" style="animation-delay:1.2s">
+                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Email</text>
+                </g>
+              </svg>
             </div>
           </div><!-- end hero-visual -->
         </div><!-- end hero-main-row -->
