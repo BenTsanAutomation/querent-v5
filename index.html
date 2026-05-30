@@ -857,16 +857,34 @@ body::before {
 }
 
 @media (max-width: 640px) {
-  :root { --pad: 20px; --gap-section: 72px; }
+  :root { --pad: 16px; --gap-section: 64px; }
+
+  /* Prevent any element from busting the viewport */
+  * { box-sizing: border-box; }
+  body { overflow-x: hidden; }
+
+  /* Service card: tighten padding, allow title to wrap */
+  .svc-card { padding: 24px 16px; }
+  .svc-name { white-space: normal; font-size: 18px; }
+  .svc-head { flex-direction: column; gap: 8px; }
+  .chip { font-size: 11px; padding: 3px 8px; }
 
   /* Before/After: stack vertically */
   .svc-ba {
     grid-template-columns: 1fr;
     gap: 8px;
+    padding: 14px 16px;
   }
   .svc-ba-arrow { transform: rotate(90deg); text-align: center; }
   .svc-ba-col-after { text-align: left; align-items: flex-start; }
   .svc-ba-col-after .svc-ba-val { color: var(--accent); }
+
+  /* Annotation labels: allow wrapping */
+  .annot-text { white-space: normal; font-size: 11px; }
+
+  /* Hero visual: shrink to fit */
+  .hero-main-row { flex-direction: column; gap: 32px; }
+  .hero-visual { width: 100%; max-width: 100%; }
 
   /* Process card: switch from absolute to block so it fills width */
   .proc2-cards { min-height: 0; }
@@ -876,12 +894,16 @@ body::before {
     opacity: 1;
     transform: none;
     pointer-events: auto;
+    padding: 20px 16px;
   }
   .proc2-card.is-active { display: block; }
 
+  /* Value grid: single column */
+  .value-grid { grid-template-columns: 1fr; }
+
   /* Case / CTA section padding */
-  .case { padding: 24px 20px; }
-  .cta  { padding: 24px 20px; }
+  .case { padding: 24px 16px; }
+  .cta  { padding: 24px 16px; }
 
   /* Footer: single column */
   .footer-grid { grid-template-columns: 1fr; }
