@@ -1376,10 +1376,10 @@ body::before {
 
         <!-- Right: Ask Quinny CTA -->
         <div class="faq-embed-wrap">
-          <button class="ask-quinny-btn" id="ask-quinny-btn" onclick="document.getElementById('cw-toggle').click(); this.blur();">
-            <img src="/quinny.jpg" alt="Quinny" class="ask-quinny-avatar">
-            <span class="ask-quinny-label">Ask Quinny</span>
-            <span class="ask-quinny-sub">Get answers instantly</span>
+          <button class="ask-quinny-btn" id="ask-quinny-btn" onclick="openChat(); this.blur();">
+            <img src="/quinny.jpg" alt="Quinny" class="ask-quinny-avatar" style="pointer-events:none;">
+            <span class="ask-quinny-label" style="pointer-events:none;">Ask Quinny</span>
+            <span class="ask-quinny-sub" style="pointer-events:none;">Get answers instantly</span>
           </button>
         </div>
       </div>
@@ -1808,6 +1808,15 @@ body::before {
   }
   toggleBtn.addEventListener('click', togglePanel);
   closeBtn.addEventListener('click', togglePanel);
+
+  // Global open helper for Ask Quinny button
+  window.openChat = function () {
+    if (panel.classList.contains('cw-hidden')) {
+      panel.classList.remove('cw-hidden');
+      toggleBtn.classList.add('cw-btn-open');
+      inputEl.focus();
+    }
+  };
 
   // Auto-resize textarea
   inputEl.addEventListener('input', function () {
