@@ -611,10 +611,51 @@ body::before {
 }
 .faq-row:not(.is-open) .faq-a { display: none; }
 
-/* ---------- FAQ embedded chat ---------- */
+/* ---------- FAQ Ask Quinny button ---------- */
 .faq-embed-wrap {
   position: sticky;
   top: 80px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.ask-quinny-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  padding: 48px 32px;
+  background: rgba(13,15,20,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  box-shadow: 0 24px 64px -16px rgba(0,0,0,0.4);
+}
+.ask-quinny-btn:hover {
+  border-color: oklch(0.72 0.14 185 / 0.5);
+  box-shadow: 0 0 40px oklch(0.72 0.14 185 / 0.12), 0 24px 64px -16px rgba(0,0,0,0.5);
+  transform: translateY(-2px);
+}
+.ask-quinny-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid oklch(0.72 0.14 185 / 0.5);
+  box-shadow: 0 0 32px oklch(0.72 0.14 185 / 0.25);
+}
+.ask-quinny-label {
+  font-size: 28px;
+  font-weight: 700;
+  color: #eceef2;
+  letter-spacing: -0.02em;
+}
+.ask-quinny-sub {
+  font-size: 14px;
+  color: #8a8f99;
 }
 .faq-embed-label { display: none; }
 .fce-panel {
@@ -1333,31 +1374,13 @@ body::before {
           </div>
         </div>
 
-        <!-- Right: embedded chat -->
+        <!-- Right: Ask Quinny CTA -->
         <div class="faq-embed-wrap">
-          <div class="faq-embed-label">Have a question? Ask our AI</div>
-          <div class="fce-panel">
-            <div class="fce-header">
-              <div class="fce-avatar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 1 8 8c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <div>
-                <div class="fce-header-title">Querent AI</div>
-                <div class="fce-header-sub">Have a question? Ask our AI</div>
-              </div>
-            </div>
-            <div class="fce-messages" id="fce-messages">
-              <div class="fce-msg fce-msg-agent">
-                <div class="fce-bubble">Hi! Got a question not covered in the FAQ? Ask me anything about our services, pricing, or how we work.</div>
-              </div>
-            </div>
-            <div class="fce-input-row">
-              <textarea class="fce-textarea" id="fce-input" rows="1" placeholder="Ask a question..." aria-label="Chat message"></textarea>
-              <button class="fce-send-btn" id="fce-send" aria-label="Send">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
-              </button>
-            </div>
-          </div>
+          <button class="ask-quinny-btn" id="ask-quinny-btn" onclick="document.getElementById('cw-toggle').click(); this.blur();">
+            <img src="/quinny.jpg" alt="Quinny" class="ask-quinny-avatar">
+            <span class="ask-quinny-label">Ask Quinny</span>
+            <span class="ask-quinny-sub">Get answers instantly</span>
+          </button>
         </div>
       </div>
     </section>
