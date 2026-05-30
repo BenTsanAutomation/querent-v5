@@ -324,11 +324,12 @@ body::before {
 .annot-text { white-space: nowrap; }
 
 /* ---------- Trust ---------- */
-.trust { margin-top: 48px; padding-top: 24px; margin-bottom: 0; border-top: 1px solid var(--line); }
+.trust { margin-top: 48px; padding-top: 0; margin-bottom: 0; }
 .trust-label {
   font-family: 'Geist Mono', monospace;
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--ink-mute); text-align: center; margin-bottom: 20px;
+  color: var(--ink-mute); text-align: center;
+  border-top: 1px solid var(--line); padding-top: 24px; margin-bottom: 20px;
 }
 .trust-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
@@ -1444,7 +1445,7 @@ body::before {
         <ul>
           <li>hello@querent.ai</li>
           <li>press@querent.ai</li>
-          <li>North America · APAC · Global Remote</li>
+          <li>Americas · APAC · Global Remote</li>
         </ul>
       </div>
     </div>
