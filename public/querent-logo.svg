@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5CC"/>
+      <stop offset="100%" stop-color="#7B2FBE"/>
+    </linearGradient>
+    <linearGradient id="qGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E5CC"/>
+      <stop offset="100%" stop-color="#7B2FBE"/>
+    </linearGradient>
+  </defs>
+  <polygon
+    points="50,6 91,27.5 91,72.5 50,94 9,72.5 9,27.5"
+    stroke="url(#hexGrad)"
+    stroke-width="6"
+    stroke-linejoin="round"
+  />
+  <text
+    x="50"
+    y="68"
+    text-anchor="middle"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-weight="700"
+    font-size="52"
+    fill="url(#qGrad)"
+  >Q</text>
+</svg>
