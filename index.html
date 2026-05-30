@@ -8,8 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<!-- Cal.com embed (replaces Calendly) -->
+<script type="text/javascript">
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, [L, namespace, ar[2]]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "30min", { origin: "https://cal.com" });
+Cal.ns["30min"]("ui", { theme: "dark", styles: { branding: { brandColor: "#7c3aed" } }, hideEventTypeDetails: true, layout: "month_view" });
+</script>
 <style>
 /* ==================================================================
    Querent AI Automation Agency
@@ -1836,7 +1840,7 @@ body::before {
 
 <script>
 (function () {
-  var CALENDLY_URL = 'https://calendly.com/querent-ai/30min';
+  var CAL_LINK = 'benquerent/30min';
 
   var panel = document.getElementById('cw-panel');
   var toggleBtn = document.getElementById('cw-toggle');
@@ -1989,10 +1993,12 @@ body::before {
   }
 
   function openCalendly() {
-    if (window.Calendly) {
-      Calendly.initPopupWidget({ url: CALENDLY_URL });
+    if (window.Cal && window.Cal.ns && window.Cal.ns["30min"]) {
+      window.Cal.ns["30min"]("modal", { calLink: CAL_LINK });
+    } else if (window.Cal) {
+      window.Cal("modal", { calLink: CAL_LINK });
     } else {
-      window.open(CALENDLY_URL, '_blank');
+      window.open('https://cal.com/' + CAL_LINK, '_blank');
     }
   }
   window._openCalendly = openCalendly;
@@ -2119,7 +2125,7 @@ body::before {
 <!-- ========== FAQ Embedded Chat ========== -->
 <script>
 (function () {
-  var CALENDLY_URL = 'https://calendly.com/querent-ai/30min';
+  var CAL_LINK = 'benquerent/30min';
 
   var messagesEl = document.getElementById('fce-messages');
   var inputEl    = document.getElementById('fce-input');
@@ -2144,8 +2150,13 @@ body::before {
   }
 
   function openCalendly() {
-    if (window.Calendly) Calendly.initPopupWidget({ url: CALENDLY_URL });
-    else window.open(CALENDLY_URL, '_blank');
+    if (window.Cal && window.Cal.ns && window.Cal.ns["30min"]) {
+      window.Cal.ns["30min"]("modal", { calLink: CAL_LINK });
+    } else if (window.Cal) {
+      window.Cal("modal", { calLink: CAL_LINK });
+    } else {
+      window.open('https://cal.com/' + CAL_LINK, '_blank');
+    }
   }
 
   function appendUser(text) {
