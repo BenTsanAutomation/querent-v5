@@ -855,6 +855,38 @@ body::before {
   .proc2-rail { grid-template-columns: 1fr 1fr; row-gap: 24px; }
   .proc2-line, .proc2-line-fill { display: none; }
 }
+
+@media (max-width: 640px) {
+  :root { --pad: 20px; --gap-section: 72px; }
+
+  /* Before/After: stack vertically */
+  .svc-ba {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .svc-ba-arrow { transform: rotate(90deg); text-align: center; }
+  .svc-ba-col-after { text-align: left; align-items: flex-start; }
+  .svc-ba-col-after .svc-ba-val { color: var(--accent); }
+
+  /* Process card: switch from absolute to block so it fills width */
+  .proc2-cards { min-height: 0; }
+  .proc2-card {
+    position: static;
+    display: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .proc2-card.is-active { display: block; }
+
+  /* Case / CTA section padding */
+  .case { padding: 24px 20px; }
+  .cta  { padding: 24px 20px; }
+
+  /* Footer: single column */
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; }
+}
 </style>
 </head>
 <body>
