@@ -290,16 +290,23 @@ body::before {
   display: flex; flex-direction: column;
   box-shadow: 0 40px 80px -40px rgba(0,0,0,0.6), 0 0 0 1px var(--line) inset;
 }
-.viz-graph { padding: 16px; }
-.viz-svg { width: 100%; height: 100%; color: var(--ink-mute); }
-.viz-edges { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 4 4; opacity: 0.7; }
-.viz-node rect { fill: var(--bg-elev-2); stroke: var(--line-strong); stroke-width: 1; }
-.viz-node text { fill: var(--ink); font-size: 12px; font-family: 'Geist Mono', monospace; text-anchor: middle; dominant-baseline: middle; }
-.viz-node-accent rect { fill: var(--accent-soft); stroke: var(--accent); }
-.viz-node-accent text { fill: var(--accent); }
-.viz-pulses { color: var(--accent); }
-.viz-pulse-out { color: var(--accent-2); }
-.viz-node-anim rect { animation: nodeBlink 3s ease-in-out infinite; }
+.viz-graph { padding: 0; overflow: hidden; }
+.viz-img-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: diagGlow 4s ease-in-out infinite;
+}
+.viz-diagram-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+@keyframes diagGlow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--line) inset, 0 0 32px -8px rgba(0,229,196,0.15), 0 40px 80px -40px rgba(0,0,0,0.6); }
+  50%       { box-shadow: 0 0 0 1px var(--line) inset, 0 0 52px -4px rgba(0,229,196,0.35), 0 40px 80px -40px rgba(0,0,0,0.6); }
+}
 @keyframes nodeBlink {
   0%, 90%, 100% { stroke: var(--line-strong); }
   10%, 30% { stroke: var(--accent); filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 40%, transparent)); }
@@ -949,63 +956,8 @@ body::before {
         <div class="hero-main-row">
           <h1 class="hero-headline">Take back your time with custom <em>AI Workflows</em>.</h1>
           <div class="hero-visual">
-            <div class="viz viz-graph">
-              <svg viewBox="15 40 480 270" class="viz-svg" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-                  </marker>
-                </defs>
-                <g class="viz-edges">
-                  <path d="M140,80  C200,80  200,180 230,180"/>
-                  <path d="M140,180 C200,180 200,180 230,180"/>
-                  <path d="M140,280 C200,280 200,180 230,180"/>
-                  <path d="M330,180 C360,180 360,90  390,90"/>
-                  <path d="M330,180 C360,180 360,180 390,180"/>
-                  <path d="M330,180 C360,180 360,270 390,270"/>
-                </g>
-                <g class="viz-pulses">
-                  <circle r="4" fill="currentColor" class="viz-pulse">
-                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M140,80  C200,80  200,180 230,180"/>
-                  </circle>
-                  <circle r="4" fill="currentColor" class="viz-pulse">
-                    <animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M140,180 C200,180 200,180 230,180"/>
-                  </circle>
-                  <circle r="4" fill="currentColor" class="viz-pulse">
-                    <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M140,280 C200,280 200,180 230,180"/>
-                  </circle>
-                  <circle r="4" fill="currentColor" class="viz-pulse-out">
-                    <animateMotion dur="2s" repeatCount="indefinite" path="M330,180 C360,180 360,90  390,90"/>
-                  </circle>
-                  <circle r="4" fill="currentColor" class="viz-pulse-out">
-                    <animateMotion dur="2s" begin="0.6s" repeatCount="indefinite" path="M330,180 C360,180 360,180 390,180"/>
-                  </circle>
-                  <circle r="4" fill="currentColor" class="viz-pulse-out">
-                    <animateMotion dur="2s" begin="1.2s" repeatCount="indefinite" path="M330,180 C360,180 360,270 390,270"/>
-                  </circle>
-                </g>
-                <g transform="translate(40,60)"  class="viz-node viz-node-anim" style="animation-delay:0s">
-                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Intake</text>
-                </g>
-                <g transform="translate(40,160)" class="viz-node viz-node-anim" style="animation-delay:0.4s">
-                  <rect width="100" height="40" rx="8"/><text x="50" y="25">CRM</text>
-                </g>
-                <g transform="translate(40,260)" class="viz-node viz-node-anim" style="animation-delay:0.8s">
-                  <rect width="100" height="40" rx="8"/><text x="50" y="25">Inbox</text>
-                </g>
-                <g transform="translate(230,160)" class="viz-node viz-node-accent viz-node-pulse">
-                  <rect width="100" height="40" rx="8"/><text x="50" y="25">AI Agent</text>
-                </g>
-                <g transform="translate(390,70)"  class="viz-node viz-node-anim" style="animation-delay:0s">
-                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Slack</text>
-                </g>
-                <g transform="translate(390,160)" class="viz-node viz-node-anim" style="animation-delay:0.6s">
-                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Sheet</text>
-                </g>
-                <g transform="translate(390,250)" class="viz-node viz-node-anim" style="animation-delay:1.2s">
-                  <rect width="80" height="40" rx="8"/><text x="40" y="25">Email</text>
-                </g>
-              </svg>
+            <div class="viz viz-graph viz-img-wrap">
+              <img src="/agent-diagram.jpg" alt="AI Agent workflow diagram" class="viz-diagram-img" />
             </div>
           </div><!-- end hero-visual -->
         </div><!-- end hero-main-row -->
