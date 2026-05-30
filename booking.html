@@ -113,6 +113,33 @@ body::before {
 .detail-text h4 { font-size: 13px; font-weight: 500; margin: 0 0 2px; }
 .detail-text p { font-size: 12px; color: var(--ink-dim); margin: 0; }
 
+/* ---------- Booking selector ---------- */
+.book-selector {
+  display: flex; gap: 12px; margin-bottom: 20px;
+}
+.book-tab {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; border-radius: var(--radius);
+  background: var(--bg-elev); border: 1px solid var(--line);
+  cursor: pointer; transition: all 0.18s ease; flex: 1;
+}
+.book-tab:hover { border-color: var(--line-strong); }
+.book-tab.active { border-color: var(--accent); background: var(--accent-soft); }
+.book-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 2px solid var(--line-strong);
+  background: var(--bg-elev-2);
+}
+.book-tab.active .book-avatar { border-color: var(--accent); }
+.book-tab-info { text-align: left; }
+.book-tab-name { font-size: 14px; font-weight: 500; color: var(--ink); display: block; }
+.book-tab-role { font-size: 12px; color: var(--ink-dim); display: block; }
+
+@media (max-width: 520px) {
+  .book-selector { flex-direction: column; }
+}
+
 /* ---------- Calendar rectangle ---------- */
 .cal-wrap {
   background: var(--bg-elev);
@@ -217,6 +244,24 @@ body::before {
         </ul>
       </div>
 
+      <!-- Team selector -->
+      <div class="book-selector">
+        <button class="book-tab active" data-cal="benquerent/30min" onclick="switchCal(this)">
+          <div class="book-avatar" style="display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--accent-soft);">B</div>
+          <div class="book-tab-info">
+            <span class="book-tab-name">Ben Tsan</span>
+            <span class="book-tab-role">Co-founder &amp; Strategy</span>
+          </div>
+        </button>
+        <button class="book-tab" data-cal="joshuali/30min" onclick="switchCal(this)">
+          <div class="book-avatar" style="display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--accent-soft);">J</div>
+          <div class="book-tab-info">
+            <span class="book-tab-name">Josh Li</span>
+            <span class="book-tab-role">Co-founder &amp; Ops</span>
+          </div>
+        </button>
+      </div>
+
       <!-- Full-width calendar rectangle -->
       <div class="cal-wrap">
         <div id="cal-booking" style="width:100%;min-height:640px;"></div>
@@ -258,18 +303,31 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
   };
 })(window, "https://app.cal.com/embed/embed.js", "init");
 Cal("init", { origin: "https://cal.com" });
-Cal("inline", {
-  elementOrSelector: "#cal-booking",
-  calLink: "benquerent/30min",
-  config: { layout: "month_view", hideBranding: true }
-});
-Cal("ui", {
-  theme: "dark",
-  styles: { branding: { brandColor: "#7c3aed" } },
-  hideEventTypeDetails: true,
-  hideBranding: true,
-  layout: "month_view"
-});
+
+function loadCal(calLink) {
+  var el = document.getElementById("cal-booking");
+  el.innerHTML = "";
+  Cal("inline", {
+    elementOrSelector: "#cal-booking",
+    calLink: calLink,
+    config: { layout: "month_view", hideBranding: true }
+  });
+  Cal("ui", {
+    theme: "dark",
+    styles: { branding: { brandColor: "#7c3aed" } },
+    hideEventTypeDetails: true,
+    hideBranding: true,
+    layout: "month_view"
+  });
+}
+
+function switchCal(btn) {
+  document.querySelectorAll(".book-tab").forEach(function(t) { t.classList.remove("active"); });
+  btn.classList.add("active");
+  loadCal(btn.dataset.cal);
+}
+
+loadCal("benquerent/30min");
 </script>
 </body>
 </html>
